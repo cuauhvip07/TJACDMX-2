@@ -5,7 +5,7 @@ export type User = {
     name: string,
     email: string,
     password: string,
-    password_repeat: string
+    current_password: string
 }
 
 export type DraftUser = Omit<User, 'id'>

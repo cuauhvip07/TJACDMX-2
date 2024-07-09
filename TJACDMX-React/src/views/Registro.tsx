@@ -2,15 +2,25 @@
 
 import { useForm } from "react-hook-form"
 import Alert from "../components/Alert"
-import { DraftUser, User } from "../types"
+import { DraftUser } from "../types"
+import { useState } from "react"
 
 
 export default function Registro() {
 
-  const {register, handleSubmit, formState: {errors}} = useForm<DraftUser>()
+  const {register, handleSubmit, formState: {errors}, watch} = useForm<DraftUser>()
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    password: '',
+    current_password: ''
+
+  })
+
+  const password = watch("password")
 
   const onSubmit = (data : DraftUser ) => {
-    console.log(data)
+    setUser( data)
   }
 
   return (
@@ -34,7 +44,7 @@ export default function Registro() {
           />
         </div>
 
-        {errors && <Alert>{errors.name?.message}</Alert>}
+        {errors.name && <Alert>{errors.name.message}</Alert>}
 
         <div className="space-y-2 mt-5 ">
 
@@ -44,30 +54,53 @@ export default function Registro() {
             placeholder="Tu Correo"
             className="block p-3 w-full border-gray-400 border rounded-lg"
             id="email"
+            {...register('email',{
+              required: "El email es obligatorio",
+              pattern: {
+                value: /^[\w\.-]+@[a-zA-Z\d\.-]+\.[a-zA-Z]{2,}$/,
+                message: 'El correo es invalido o no cumple con la estructura'
+              }
+            })}
           />
         </div>
 
+        {errors.email && <Alert>{errors.email.message}</Alert>}
+
         <div className="space-y-2 mt-5 ">
 
-          <label htmlFor="password" className=" font-bold uppercase">Contraseña:</label>
+          <label htmlFor="password" className=" font-bold uppercase">Contraseña: <span className="block text-xs text-gray-400">*Debe contener un numero y un simbolo especial</span></label>
           <input 
             type="password" 
             placeholder="Contraseña"
             className="block p-3 w-full border-gray-400 border rounded-lg"
             id="password"
+            {...register('password',{
+              required: 'La contraseña es obligatoria',
+              pattern: {
+                value:/^(?=.*[0-9])(?=.*[!@#$%^&*])/,
+                message: 'La contrseña debe de contener un numero y un simbolo especial'
+              }
+            })}
           />
         </div>
+
+        {errors.password && <Alert>{errors.password.message}</Alert>}
 
         <div className="space-y-2 mt-5 ">
 
-          <label htmlFor="password_repeat" className=" font-bold uppercase">Repetir Contraseña:</label>
+          <label htmlFor="current_password" className=" font-bold uppercase">Repetir Contraseña:</label>
           <input 
-            type="password_repeat" 
+            type="password" 
             placeholder="Repite tu contraseña"
             className="block p-3 w-full border-gray-400 border rounded-lg"
-            id="password_repeat"
+            id="current_password"
+            {...register('current_password',{
+              validate: value => value === password || 'Las contraseñas no coinciden'
+            })}
           />
         </div>
+
+        {errors.current_password && <Alert>{errors.current_password.message}</Alert>}
 
         <input 
           type="submit" 

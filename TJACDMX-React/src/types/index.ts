@@ -5,7 +5,7 @@ export type User = {
     name: string,
     email: string,
     password: string,
-    current_password: string
+    password_confirmation: string
 }
 
 export type DraftUser = Omit<User, 'id'>

@@ -8,12 +8,13 @@ import { useState } from "react"
 
 export default function Registro() {
 
+
   const {register, handleSubmit, formState: {errors}, watch} = useForm<DraftUser>()
   const [user, setUser] = useState({
     name: '',
     email: '',
     password: '',
-    current_password: ''
+    password_confirmation: ''
 
   })
 
@@ -21,6 +22,12 @@ export default function Registro() {
 
   const onSubmit = (data : DraftUser ) => {
     setUser( data)
+    
+    try {
+      
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -88,19 +95,19 @@ export default function Registro() {
 
         <div className="space-y-2 mt-5 ">
 
-          <label htmlFor="current_password" className=" font-bold uppercase">Repetir Contraseña:</label>
+          <label htmlFor="password_confirmation" className=" font-bold uppercase">Repetir Contraseña:</label>
           <input 
             type="password" 
             placeholder="Repite tu contraseña"
             className="block p-3 w-full border-gray-400 border rounded-lg"
-            id="current_password"
-            {...register('current_password',{
+            id="password_confirmation"
+            {...register('password_confirmation',{
               validate: value => value === password || 'Las contraseñas no coinciden'
             })}
           />
         </div>
 
-        {errors.current_password && <Alert>{errors.current_password.message}</Alert>}
+        {errors.password_confirmation && <Alert>{errors.password_confirmation.message}</Alert>}
 
         <input 
           type="submit" 

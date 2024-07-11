@@ -3,8 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./layouts/Layout";
 import Registro from "./views/Registro";
 import Login from "./views/Login";
-import Convocatorias from "./views/Convocatorias";
-import ConvocatoriaDetail from "./views/ConvocatoriaDetail";
+import Convocatorias from "./views/Convocatorias/Convocatorias";
+import ConvocatoriaDetail from "./views/Convocatorias/ConvocatoriaDetail";
 
 
 const router = createBrowserRouter([

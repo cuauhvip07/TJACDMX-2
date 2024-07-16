@@ -1,29 +1,74 @@
+import { useForm } from "react-hook-form";
 import { estatus } from "../../data/estatus";
-import Input from "../../utilities/Input";
 import Label from "../../utilities/Label";
 
 
 export default function ConvocatoriasMake() {
+
+    type submitProps = {
+        numero_conv: number
+        numero_of: string
+        fecha: Date
+        archivo: FileList
+        hora_inicio_real: string
+        hora_fin_real: string
+        status: number
+    }
+    const {register, handleSubmit, formState: {errors}} = useForm<submitProps>()
+
+    const onSubmit = (data : submitProps) => {
+        console.log(data)
+    }
+
   return (
     <div className=" mt-10 flex justify-center">
         
-        <div className=" shadow-lg w-7/12 mt-10 px-20 py-10">
-            <form className=" w-full ">
+        <div className=" shadow-lg w-7/12 mt-10 md:px-20 md:py-10 px-7 py-7">
+            <form
+                className=" w-full "
+                onSubmit={handleSubmit(onSubmit)}
+            >
                 <h3 className=" font-bold  text-xl">Crea una convocatoria.</h3>
-                <div className="grid grid-cols-2 gap-5 mt-5">
-                    <div className=" space-y-10">
+                <p className=" text-sm">Todos los campos son obligatorios*</p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mt-5">
+                    <div className=" space-y-5 md:space-y-10">
                         <div>
                             <Label
-                                htmlfor='numero_orden'
+                                htmlfor='numero_conv'
                             >
-                                Numero de Orden: 
+                                Numero de Convocatoria: 
                             </Label>
 
-                            <Input
+                            <input
                                 type='number'
-                                id={'numero_orden'}
-                                name={'numero_orden'}
+                                id='numero_conv'
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.numero_conv ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("numero_conv",{
+                                    required: "Todos los campos son obligatorios"
+                                })}
                             />
+
+                            {errors.numero_conv && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.numero_conv.message}</p>}
+
+                        </div>
+                                    {/* Falta validar la nomenclatura del oficio */}
+                        <div>
+                            <Label
+                                htmlfor='numero_of'
+                            >
+                                Numero de Oficio: 
+                            </Label>
+
+                            <input
+                                type='text'
+                                id='numero_of'
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.numero_of ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("numero_of",{
+                                    required: "Todos los campos son obligatorios"
+                                })}
+                            />
+
+                            {errors.numero_of && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.numero_of.message}</p>}
 
                         </div>
 
@@ -34,11 +79,16 @@ export default function ConvocatoriasMake() {
                                 Fecha: 
                             </Label>
 
-                            <Input
+                            <input
                                 type='date'
-                                id={'fecha'}
-                                name={'fecha'}
+                                id="fecha"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.fecha ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("fecha",{
+                                    required:"La fecha es obligatoria"
+                                })}
                             />
+
+                            {errors.fecha && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fecha.message}</p>}
 
                         </div>
 
@@ -49,18 +99,23 @@ export default function ConvocatoriasMake() {
                                 Archivo del Oficio: 
                             </Label>
 
-                            <Input
+                            <input
                                 type='file'
                                 accept=".pdf"
-                                name="archivo"
                                 id="archivo"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.archivo ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("archivo",{
+                                    required: 'Este campo es obligatorio',
+                                })}
                             />
+
+                            {errors.archivo && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.archivo.message}</p>}
 
                         </div>
 
                     </div>
 
-                    <div className="space-y-10">
+                    <div className="space-y-5 md:space-y-10">
                         <div>
                             <Label
                                 htmlfor="hora_inicio_real"
@@ -68,11 +123,16 @@ export default function ConvocatoriasMake() {
                                 Hora de inicio real: 
                             </Label>
 
-                            <Input
+                            <input
                                 type='time'
                                 id="hora_inicio_real"
-                                name="hora_inicio_real"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.hora_inicio_real ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("hora_inicio_real",{
+                                    required: 'La hora de incio es obligatoria'
+                                })}
                             />
+
+                            {errors.hora_inicio_real && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.hora_inicio_real.message}</p>}
 
                         </div>
 
@@ -83,11 +143,15 @@ export default function ConvocatoriasMake() {
                                 Hora finalizacion real: 
                             </Label>
 
-                            <Input
+                            <input
                                 type='time'
-                                name="hora_fin_real"
                                 id="hora_fin_real"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.hora_fin_real ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("hora_fin_real",{
+                                    required: 'La hora de incio es obligatoria'
+                                })}
                             />
+                            {errors.hora_fin_real && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.hora_fin_real.message}</p>}
 
                         </div>
 
@@ -100,13 +164,15 @@ export default function ConvocatoriasMake() {
                             <select 
                                 name="status" 
                                 id="status" 
-                                className="border rounded-xl py-1 w-10/12 bg-gray-100 text-center focus:bg-gray-300"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.status ? ' bg-red-100' : 'bg-gray-100'}`}
                             >
                                 <option value="" disabled selected>-- Seleccione una opción --</option>
                                {estatus.map( status => (
-                                <option value={status.id}>{status.status}</option>
+                                <option key={status.id} value={status.id}>{status.status}</option>
                                ))}
                             </select>
+
+                            {errors.status && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.status.message}</p>}
                         </div>
                     </div>
                 </div>
@@ -114,7 +180,7 @@ export default function ConvocatoriasMake() {
                 <div className=" flex justify-center mt-10">
                     <input 
                         type="submit" 
-                        className=" bg-orange-400 w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
+                        className=" bg-orange-400 w-full md:w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
                     />
                 </div>
             </form>

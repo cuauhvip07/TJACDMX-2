@@ -5,6 +5,7 @@ import Registro from "./views/Registro";
 import Login from "./views/Login";
 import Convocatorias from "./views/Convocatorias/Convocatorias";
 import ConvocatoriaDetail from "./views/Convocatorias/ConvocatoriaDetail";
+import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
 
 
 const router = createBrowserRouter([
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias/:id', // El id hace que sea dinamica la url
                 element: <ConvocatoriaDetail/>
+            },
+            {
+                path:'/convocatorias/crear',
+                element: <ConvocatoriasMake/>
             }
            
         ]

@@ -1,15 +1,16 @@
 import { ReactNode } from "react"
 
 type LabelProps = {
-    children : ReactNode
+    children : ReactNode,
+    htmlfor: string
 }
 
-export default function Label({children} : LabelProps) {
+export default function Label({children,htmlfor} : LabelProps) {
   return (
 
     <label 
-        htmlFor=""
-        className="    "
+        htmlFor={htmlfor}
+        className=" block mb-2 "
     >
         {children}
     </label>

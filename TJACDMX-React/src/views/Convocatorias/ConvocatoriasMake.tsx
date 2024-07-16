@@ -1,23 +1,28 @@
 import { useForm } from "react-hook-form";
 import { estatus } from "../../data/estatus";
 import Label from "../../utilities/Label";
+import { useState } from "react";
+
+type submitProps = {
+    numero_conv: number
+    numero_of: string
+    fecha: Date
+    archivo: FileList
+    hora_inicio_real: string
+    hora_fin_real: string
+    status: number
+}
 
 
 export default function ConvocatoriasMake() {
 
-    type submitProps = {
-        numero_conv: number
-        numero_of: string
-        fecha: Date
-        archivo: FileList
-        hora_inicio_real: string
-        hora_fin_real: string
-        status: number
-    }
+    
+
+    const [convocatoria,setConvocatoria] = useState<submitProps>()
     const {register, handleSubmit, formState: {errors}} = useForm<submitProps>()
 
     const onSubmit = (data : submitProps) => {
-        console.log(data)
+        setConvocatoria(data)
     }
 
   return (

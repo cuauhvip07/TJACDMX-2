@@ -32,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias/crear',
                 element: <ConvocatoriasMake/>
+            },
+            {
+                path:'/:id/puntos-convocatoria'
+                
             }
            
         ]

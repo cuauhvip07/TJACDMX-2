@@ -1,28 +1,24 @@
 import { useForm } from "react-hook-form";
 import { estatus } from "../../data/estatus";
 import Label from "../../utilities/Label";
-import { useState } from "react";
+import { Convocatoria } from "../../types";
+import { useConv } from "../../stores/useConv";
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
-type submitProps = {
-    numero_conv: number
-    numero_of: string
-    fecha: Date
-    archivo: FileList
-    hora_inicio_real: string
-    hora_fin_real: string
-    status: number
-}
 
 
 export default function ConvocatoriasMake() {
 
-    
+    const {addConvocatorias} = useConv()
+    const {register, handleSubmit, formState: {errors}, reset} = useForm<Convocatoria>()
 
-    const [convocatoria,setConvocatoria] = useState<submitProps>()
-    const {register, handleSubmit, formState: {errors}} = useForm<submitProps>()
-
-    const onSubmit = (data : submitProps) => {
-        setConvocatoria(data)
+    const onSubmit = (data : Convocatoria) => {
+        addConvocatorias(data)
+        toast.success('Convocatoria Creada Correctamente',{
+            draggable:true
+        })
+        reset()
     }
 
   return (
@@ -186,8 +182,10 @@ export default function ConvocatoriasMake() {
                     <input 
                         type="submit" 
                         className=" bg-orange-400 w-full md:w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
+                        value="Crear"
                     />
                 </div>
+                <ToastContainer draggable />
             </form>
         </div>
     </div>

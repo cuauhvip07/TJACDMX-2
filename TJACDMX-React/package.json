@@ -18,7 +18,9 @@
     "react-hook-form": "^7.52.1",
     "react-modal": "^3.16.1",
     "react-pro-sidebar": "^1.1.0",
-    "react-router-dom": "^6.24.1"
+    "react-router-dom": "^6.24.1",
+    "react-toastify": "^10.0.5",
+    "zustand": "^4.5.4"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",

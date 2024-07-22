@@ -5,6 +5,7 @@ import Registro from "./views/Registro";
 import ConvocatoriaDetail from "./views/Convocatorias/ConvocatoriaDetail";
 import Convocatorias from "./views/Convocatorias/Convocatorias";
 import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
+import Dashboard from "./views/Dashboard";
 
 
 const router = createBrowserRouter([
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
         children: [
             {
                 index: true,
+                element: <Dashboard/>
+            },
+            {
+                path:'/login',
                 element: <Login/>
             },
             {

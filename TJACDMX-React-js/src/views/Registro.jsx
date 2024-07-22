@@ -10,7 +10,7 @@ export default function Registro() {
 
 
   const {register, handleSubmit, formState: {errors}, watch} = useForm()
-  const {registro} = useAuth(1,2);
+  const {registro} = useAuth({middleware: 'guest', url: '/'});
   const [errores,setErrores] = useState({})
 
 

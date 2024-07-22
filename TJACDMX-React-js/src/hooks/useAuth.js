@@ -1,8 +1,26 @@
 import { toast } from 'react-toastify';
 import clienteAxios from "../config/axios"
+import { useNavigate } from 'react-router-dom';
+import useSWR from 'swr';
+import { useEffect } from 'react';
 
 
 export const useAuth = ({middleware,url}) => {
+
+    const token = localStorage.getItem('AUTH_TOKEN');
+    const navigate = useNavigate()
+
+    const {data: user,error, mutate} = useSWR('/api/user', () =>
+        clienteAxios('/api/user', {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        })
+        .then(res => res.data)
+        .catch(error => {
+            throw Error(error?.response?.data?.errors)
+        })
+    )
 
     const registro = async (datos,setErrores) => {
         
@@ -12,6 +30,7 @@ export const useAuth = ({middleware,url}) => {
             toast.success('Registrado Correctamente',{
                 draggable:true
             })
+            await mutate()
         } catch (error) {
             if(error.response && error.response.data && error.response.data.errors){
                 const ServerErrores = error.response.data.errors
@@ -19,6 +38,12 @@ export const useAuth = ({middleware,url}) => {
             }
         }
     }
+
+    useEffect(() => {
+        if(middleware === 'guest' && url && user){
+            navigate(url)
+        }
+    },[user,error])
 
     
 

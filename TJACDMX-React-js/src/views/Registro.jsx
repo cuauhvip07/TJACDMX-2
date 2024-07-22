@@ -1,33 +1,27 @@
 
-
+import { ToastContainer } from 'react-toastify';
 import { useForm } from "react-hook-form"
 import Alert from "../components/Alert"
 import { useState } from "react"
+import { useAuth } from "../hooks/useAuth"
 
 
 export default function Registro() {
 
 
   const {register, handleSubmit, formState: {errors}, watch} = useForm()
-  const [user, setUser] = useState({
-    name: '',
-    email: '',
-    password: '',
-    password_confirmation: ''
+  const {registro} = useAuth(1,2);
+  const [errores,setErrores] = useState({})
 
-  })
 
   const password = watch("password")
 
-  const onSubmit = (data ) => {
-    setUser(data)
-    
-    try {
-      
-    } catch (error) {
-      console.log(error)
-    }
+  const onSubmit = (data) => {
+    registro(data,setErrores)
+
   }
+
+  console.log(errores)
 
   return (
     <div className=" flex flex-col md:flex-row md:justify-center my-16 gap-5 items-center">
@@ -71,6 +65,7 @@ export default function Registro() {
         </div>
 
         {errors.email && <Alert>{errors.email.message}</Alert>}
+        {errores.email && <Alert>{errores.email[0]}</Alert>}
 
         <div className="space-y-2 mt-5 ">
 
@@ -116,6 +111,8 @@ export default function Registro() {
 
         
       </form>
+
+      <ToastContainer draggable />
     </div>
   )
 }

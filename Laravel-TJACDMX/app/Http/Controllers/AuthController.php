@@ -10,7 +10,7 @@ class AuthController extends Controller
 {
     public function register(RegistroRequest $request){
         
-        $data = $request->validate();
+        $data = $request->validated();
 
         $user = User::create([
             'name'=>$data['name'],

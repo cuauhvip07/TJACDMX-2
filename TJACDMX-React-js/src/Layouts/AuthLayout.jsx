@@ -9,7 +9,6 @@ import { useAuth } from '../hooks/useAuth'
 import HeaderAuth from './HeaderAuth'
 import { ToastContainer } from 'react-toastify';
 import Modal from 'react-modal'
-import SidebarResponsive from './SidebarResponsive';
 
 export default function AuthLayout() {
 

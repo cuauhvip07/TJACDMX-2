@@ -11,7 +11,6 @@ export default function ConvocatoriasMake() {
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
     const onSubmit = (data) => {
-        addConvocatorias(data)
         toast.success('Convocatoria Creada Correctamente',{
             draggable:true
         })

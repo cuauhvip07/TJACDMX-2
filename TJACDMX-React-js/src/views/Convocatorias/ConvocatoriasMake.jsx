@@ -3,14 +3,19 @@ import { estatus } from "../../data/estatus";
 import Label from "../../utilities/Label";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import useConv from "../../hooks/useConv";
+import { useAuth } from "../../hooks/useAuth";
 
 
 
 export default function ConvocatoriasMake() {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
+    useAuth({middleware:'admin'})
+    const {handleSubmitNuevaConvocatoria} = useConv()
 
     const onSubmit = (data) => {
+
         toast.success('Convocatoria Creada Correctamente',{
             draggable:true
         })

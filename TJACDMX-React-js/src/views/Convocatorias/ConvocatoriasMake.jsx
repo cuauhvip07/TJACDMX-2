@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { estatus } from "../../data/estatus";
 import Label from "../../utilities/Label";
-import { useConv } from "../../stores/useConv";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -9,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function ConvocatoriasMake() {
 
-    const {addConvocatorias} = useConv()
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
 
     const onSubmit = (data) => {

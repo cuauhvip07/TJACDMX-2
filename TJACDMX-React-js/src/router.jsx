@@ -5,6 +5,7 @@ import Registro from "./views/Registro";
 import Convocatorias from "./views/Convocatorias/Convocatorias";
 import AuthLayout from "./Layouts/AuthLayout";
 import Dashboard from "./views/Dashboard";
+import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
 
 
 
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias',
                 element: <Convocatorias/>
+            },
+            {
+                path:'/convocatorias/crear',
+                element: <ConvocatoriasMake/>
             }
         ]
     }

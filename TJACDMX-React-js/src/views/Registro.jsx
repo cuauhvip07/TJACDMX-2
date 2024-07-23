@@ -21,8 +21,6 @@ export default function Registro() {
 
   }
 
-  console.log(errores)
-
   return (
     <div className=" flex flex-col md:flex-row md:justify-center my-16 gap-5 items-center">
       <div>

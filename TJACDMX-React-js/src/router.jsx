@@ -5,7 +5,9 @@ import Registro from "./views/Registro";
 import ConvocatoriaDetail from "./views/Convocatorias/ConvocatoriaDetail";
 import Convocatorias from "./views/Convocatorias/Convocatorias";
 import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
+import AuthLayout from "./Layouts/AuthLayout";
 import Dashboard from "./views/Dashboard";
+
 
 
 const router = createBrowserRouter([
@@ -13,10 +15,7 @@ const router = createBrowserRouter([
         path:'/',
         element: <Layout/>,
         children: [
-            {
-                index: true,
-                element: <Dashboard/>
-            },
+
             {
                 path:'/login',
                 element: <Login/>
@@ -25,19 +24,17 @@ const router = createBrowserRouter([
                 path:'/registro',
                 element: <Registro/>
             },
-            {
-                path:'/convocatorias',
-                element:<Convocatorias/>
-            },
-            {
-                path:'/convocatorias/:id', // El id hace que sea dinamica la url
-                element: <ConvocatoriaDetail/>
-            },
-            {
-                path:'/convocatorias/crear',
-                element: <ConvocatoriasMake/>
-            },
             
+        ]
+    },
+    {
+        path:'/',
+        element: <AuthLayout/>,
+        children:[
+            {
+                index: true,
+                element: <Dashboard/> 
+            }
         ]
     }
 ])

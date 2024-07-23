@@ -7,7 +7,6 @@ import Footer from './Footer'
 
 export default function Layout() {
 
-  Modal.setAppElement('#root');
 
   return (
    <div className=' min-h-screen flex flex-col'>

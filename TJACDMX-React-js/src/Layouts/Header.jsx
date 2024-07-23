@@ -2,7 +2,24 @@
 import { Bars3Icon } from '@heroicons/react/24/solid';
 import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
-import SidebarResponsive from './SidebarResponsive'
+import useConv from '../hooks/useConv';
+import Modal from 'react-modal'
+import SidebarResponsive from './SidebarResponsive';
+
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
+
+
+Modal.setAppElement('#root')
 
 export default function Header() {
 
@@ -11,6 +28,8 @@ export default function Header() {
   const toogleMenu = () => {
     setIsOpen(!isOpen);
   }
+
+  const {modal,handleClickModal} = useConv()
 
   return (
     <header className=' bg-gray-300 py-3'>
@@ -40,16 +59,14 @@ export default function Header() {
 
         <button
           className='md:hidden'
-          onClick={ toogleMenu }
+          onClick={ () => handleClickModal() }
         >
           <Bars3Icon className='size-6'/>
         </button>
 
-        {isOpen && 
-          <SidebarResponsive 
-          isOpen={isOpen}
-          toogleMenu={toogleMenu}
-        />}
+        <Modal isOpen={modal} style={customStyles}>
+          <SidebarResponsive/>
+        </Modal>
       </div>
     </header>
   )

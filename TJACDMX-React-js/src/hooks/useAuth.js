@@ -43,11 +43,17 @@ export const useAuth = ({middleware,url}) => {
         if(middleware === 'guest' && url && user){
             navigate(url)
         }
+
+        if(middleware === 'auth' && error){
+            navigate('/registro')
+        }
     },[user,error])
 
     
 
     return {
         registro,
+        user,
+        error
     }
 }

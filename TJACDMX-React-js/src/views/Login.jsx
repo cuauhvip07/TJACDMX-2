@@ -2,7 +2,6 @@
 import { useForm } from "react-hook-form"
 import { Link } from 'react-router-dom';
 import Alert from "../components/Alert"
-import { ToastContainer } from 'react-toastify';
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 
@@ -87,7 +86,6 @@ export default function Login() {
       </div>
     </div>
 
-    <ToastContainer draggable />
   </div>
   )
 }

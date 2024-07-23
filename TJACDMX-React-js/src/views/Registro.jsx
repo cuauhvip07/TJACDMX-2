@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form"
 import Alert from "../components/Alert"
 import { useState } from "react"
 import { useAuth } from "../hooks/useAuth"
+import { Link } from 'react-router-dom';
 
 
 export default function Registro() {
@@ -111,6 +112,9 @@ export default function Registro() {
 
           
         </form>
+        <div className='mt-5'>
+          <Link to='/login' >¿Ya tienes cuenta? <span className=' uppercase font-bold'>Ingresa aqui</span></Link>
+        </div>
       </div>
 
       <ToastContainer draggable />

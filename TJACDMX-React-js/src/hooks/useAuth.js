@@ -31,6 +31,22 @@ export const useAuth = ({middleware,url}) => {
                 draggable:true
             })
             await mutate()
+            setErrores({})
+        } catch (error) {
+            if(error.response && error.response.data && error.response.data.errors){
+                const ServerErrores = error.response.data.errors
+                setErrores(ServerErrores)
+            }
+        }
+    }
+
+    const login = async (datos,setErrores) => {
+        
+        try {
+            const {data} = await clienteAxios.post('/api/login',datos);
+            localStorage.setItem('AUTH_TOKEN',data.token)
+            await mutate()
+            setErrores({})
         } catch (error) {
             if(error.response && error.response.data && error.response.data.errors){
                 const ServerErrores = error.response.data.errors
@@ -45,7 +61,7 @@ export const useAuth = ({middleware,url}) => {
         }
 
         if(middleware === 'auth' && error){
-            navigate('/registro')
+            navigate('/login')
         }
     },[user,error])
 
@@ -54,6 +70,7 @@ export const useAuth = ({middleware,url}) => {
     return {
         registro,
         user,
-        error
+        error,
+        login
     }
 }

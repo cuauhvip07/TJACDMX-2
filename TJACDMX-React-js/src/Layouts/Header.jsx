@@ -21,12 +21,12 @@ export default function Header() {
 
         <nav className={'md:flex space-x-3 hidden'}>
           <NavLink
-            to={'/'}
+            to={'/login'}
             className={({isActive}) => 
               isActive ? 'text-orange-500 uppercase font-bold' : 'uppercase font-bold'
             }
           >
-            Inicio
+            Iniciar Sesion
           </NavLink>
 
           <NavLink

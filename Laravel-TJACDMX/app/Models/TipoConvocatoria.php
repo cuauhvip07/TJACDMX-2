@@ -10,4 +10,9 @@ class TipoConvocatoria extends Model
     use HasFactory;
 
     protected $table = 'tipo_convocatoria';
+
+    public function convocatoria ()
+    {
+        return $this->hasMany(Convocatoria::class);
+    }
 }

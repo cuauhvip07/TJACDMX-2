@@ -17,9 +17,11 @@ const ConvocatoriasProvider = ({ children }) => {
 
     const handleSubmitNuevaConvocatoria = async (datos) => {
         const token = localStorage.getItem('AUTH_TOKEN');
+        
         try {
             const {data} = await clienteAxios.post('/api/nueva_convocatoria', datos,{
                 headers:{
+                    'Content-Type': 'multipart/form-data',
                     Authorization: `Bearer ${token}`
                 }
             })

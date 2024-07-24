@@ -7,6 +7,7 @@ const ConsultaContext = createContext()
 const ConsultaProvider = ({children}) => {
 
     const [tipoConvocatoria, setTipoConvocatoria] = useState([])
+    const [convocatorias,setConvocatorias] = useState([])
 
     const obtenerTipoConvocatorias = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
@@ -26,8 +27,24 @@ const ConsultaProvider = ({children}) => {
         
     }
 
+    const obtenerConvocatorias = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+        try {
+            const {data} = await clienteAxios('/api/nueva_convocatoria',{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setConvocatorias(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         obtenerTipoConvocatorias()
+        obtenerConvocatorias()
     },[])
 
   
@@ -37,6 +54,7 @@ const ConsultaProvider = ({children}) => {
         value={{
 
             tipoConvocatoria,
+            convocatorias,
             
         }}
 

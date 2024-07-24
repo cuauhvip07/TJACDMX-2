@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import Label from "../../utilities/Label";
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
 import useConsulta from "../../hooks/useConsulta";
+import { useState } from "react";
 
 
 
@@ -15,8 +16,23 @@ export default function ConvocatoriasMake() {
     const {handleSubmitNuevaConvocatoria,estatus} = useConv()
     const {tipoConvocatoria} = useConsulta();
 
+    // const [archivo,setArchivo] = useState(null)
+
+    // const handleFileChange = (e) => {
+    //     e.preventDefault()
+    //     setArchivo(e.target.files[0]);
+    // } 
+
+    // const formData = new FormData()
+    // formData.append('file',archivo)
+
+
     const onSubmit = (data) => {
 
+        // const {archivo,...datos} = data
+        // let archivoModificado = formData
+        // const dataModificado = {archivo:archivoModificado, ...datos}
+        
         handleSubmitNuevaConvocatoria(data)
 
         toast.success('Convocatoria Creada Correctamente',{
@@ -112,6 +128,7 @@ export default function ConvocatoriasMake() {
                                 {...register("archivo",{
                                     required: 'Este campo es obligatorio',
                                 })}
+                                onChange={handleFileChange}
                             />
 
                             {errors.archivo && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.archivo.message}</p>}

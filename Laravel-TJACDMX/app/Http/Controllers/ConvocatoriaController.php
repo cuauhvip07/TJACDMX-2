@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ConvocatoriaCollection;
 use App\Models\Convocatoria;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class ConvocatoriaController extends Controller
      */
     public function index()
     {
-        //
+        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->get());
     }
 
     /**
@@ -29,7 +30,7 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
 
-       
+
         $convocatoria = new Convocatoria;
         $convocatoria->numero_conv = $request->numero_conv;
         $convocatoria->numero_of = $request->numero_of;
@@ -41,6 +42,7 @@ class ConvocatoriaController extends Controller
         $convocatoria->tipo_convocatoria_id = $request->tipo_convocatoria_id;
         $convocatoria->save();
 
+        // Falta poder subir archivos
 
         return [
             'message' => 'Datos guardados exitosamente'

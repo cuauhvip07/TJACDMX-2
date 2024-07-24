@@ -1,5 +1,4 @@
 import { useForm } from "react-hook-form";
-import { estatus } from "../../data/estatus";
 import Label from "../../utilities/Label";
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
@@ -12,7 +11,7 @@ export default function ConvocatoriasMake() {
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
-    const {handleSubmitNuevaConvocatoria} = useConv()
+    const {handleSubmitNuevaConvocatoria,estatus} = useConv()
 
     const onSubmit = (data) => {
 
@@ -94,7 +93,7 @@ export default function ConvocatoriasMake() {
 
                         </div>
 
-                        <div>
+                        {/* <div>
                             <Label
                                 htmlfor='archivo'
                             >
@@ -113,7 +112,7 @@ export default function ConvocatoriasMake() {
 
                             {errors.archivo && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.archivo.message}</p>}
 
-                        </div>
+                        </div> */}
 
                     </div>
 
@@ -170,7 +169,7 @@ export default function ConvocatoriasMake() {
                             >
                                 <option value="" disabled selected>-- Seleccione una opción --</option>
                                {estatus.map( status => (
-                                <option key={status.id} value={status.id}>{status.status}</option>
+                                <option key={status.id} value={status.id}>{status.estatus}</option>
                                ))}
                             </select>
 

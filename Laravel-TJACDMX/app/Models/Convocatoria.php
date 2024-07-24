@@ -13,4 +13,9 @@ class Convocatoria extends Model
     {
         return $this->belongsTo(TipoConvocatoria::class,'tipo_convocatoria_id');
     }
+
+    public function estatus()
+    {
+        return $this->belongsTo(Estatus::class,'estatus_id');
+    }
 }

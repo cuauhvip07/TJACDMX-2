@@ -22,7 +22,9 @@ class ConvocatoriaResource extends JsonResource
             'archivo' => $this->archivo,
             'hora_inicio_real' => $this->hora_inicio_real,
             'hora_fin_real' => $this->hora_fin_real,
-            'estatus_id' => $this->estatus_id,
+            'estatus' => [
+                'estatus'=>$this->estatus->estatus
+            ],
             'tipo_convocatoria' => [
                 'nombre' => $this->tipoConvocatoria->nombre
             ]

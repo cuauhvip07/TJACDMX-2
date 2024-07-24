@@ -54,7 +54,7 @@ export default function Convocatorias() {
                                     {convocatoria.numero_of}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <p className=" bg-green-400 text-center font-bold rounded-md inline-block px-5 py-1 text-black">{convocatoria.estatus_id}</p>
+                                    <p className=" bg-green-400 text-center font-bold rounded-md inline-block px-5 py-1 text-black">{convocatoria.estatus.estatus}</p>
                                 </td>
                                 <td className="px-6 py-4">
                                     {convocatoria.tipo_convocatoria.nombre}

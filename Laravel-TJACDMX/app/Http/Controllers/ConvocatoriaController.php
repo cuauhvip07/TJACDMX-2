@@ -13,7 +13,7 @@ class ConvocatoriaController extends Controller
      */
     public function index()
     {
-        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->get());
+        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->with('estatus')->get());
     }
 
     /**

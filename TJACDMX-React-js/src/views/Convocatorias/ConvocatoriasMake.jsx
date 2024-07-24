@@ -17,7 +17,7 @@ export default function ConvocatoriasMake() {
 
     const onSubmit = (data) => {
 
-        console.log(data)
+        handleSubmitNuevaConvocatoria(data)
 
         toast.success('Convocatoria Creada Correctamente',{
             draggable:true
@@ -162,15 +162,15 @@ export default function ConvocatoriasMake() {
 
                         <div>
                             <Label
-                                htmlfor="status"
+                                htmlfor="estatus_id"
                             >
                                 Estatus: 
                             </Label>
                             <select 
-                                name="status" 
-                                id="status" 
+                                name="estatus_id" 
+                                id="estatus_id" 
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.status ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register('status',{
+                                {...register('estatus_id',{
                                     required: 'Debe de seleccionar un tipo de estatus'
                                 })}
                             >
@@ -180,7 +180,7 @@ export default function ConvocatoriasMake() {
                                ))}
                             </select>
 
-                            {errors.status && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.status.message}</p>}
+                            {errors.estatus_id && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.estatus_id.message}</p>}
                         </div>
 
                         <div>
@@ -190,10 +190,10 @@ export default function ConvocatoriasMake() {
                                 Tipo de Convocatoria: 
                             </Label>
                             <select 
-                                name="tipo_convocatoria" 
-                                id="tipo_convocatoria" 
-                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.tipo_convocatoria ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register('tipo_convocatoria',{
+                                name="tipo_convocatoria_id" 
+                                id="tipo_convocatoria_id" 
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.tipo_convocatoria_id ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register('tipo_convocatoria_id',{
                                     required: 'Debe de seleccionar un tipo de convocatoria'
                                 })}
                             >
@@ -203,7 +203,7 @@ export default function ConvocatoriasMake() {
                                ))}
                             </select>
 
-                            {errors.tipo_convocatoria && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.tipo_convocatoria.message}</p>}
+                            {errors.tipo_convocatoria_id && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.tipo_convocatoria_id.message}</p>}
                         </div>
 
                     </div>

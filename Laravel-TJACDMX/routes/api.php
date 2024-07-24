@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ConvocatoriaController;
 use App\Http\Controllers\EstatusController;
 use App\Http\Controllers\TipoConvocatoriaController;
 use Illuminate\Http\Request;
@@ -15,6 +16,7 @@ Route::middleware('auth:sanctum')->group(function(){
     // Route::post('/logout',[AuthController::class, 'logout']);
     Route::apiResource('/estatus-convocatoria', EstatusController::class);
     Route::apiResource('/tipo_convocatoria', TipoConvocatoriaController::class);
+    Route::apiResource('/nueva_convocatoria',ConvocatoriaController::class);
 
 });
 

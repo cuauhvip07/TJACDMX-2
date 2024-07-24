@@ -1,6 +1,7 @@
 
 import { createContext, useEffect, useState } from 'react';
 import clienteAxios from '../config/axios';
+import { toast } from 'react-toastify';
 
 const ConvocatoriasContext = createContext();
 
@@ -14,8 +15,22 @@ const ConvocatoriasProvider = ({ children }) => {
         setModal(!modal);
     };
 
-    const handleSubmitNuevaConvocatoria = (datos) => {
-        console.log(datos)
+    const handleSubmitNuevaConvocatoria = async (datos) => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        try {
+            const {data} = await clienteAxios.post('/api/nueva_convocatoria', datos,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+           toast.success(data.message,{
+            draggable:true
+           })
+
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const obtenerEstatus = async () => {

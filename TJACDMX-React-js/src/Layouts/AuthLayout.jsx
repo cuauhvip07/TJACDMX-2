@@ -9,6 +9,7 @@ import { useAuth } from '../hooks/useAuth'
 import HeaderAuth from './HeaderAuth'
 import { ToastContainer } from 'react-toastify';
 import Modal from 'react-modal'
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function AuthLayout() {
 

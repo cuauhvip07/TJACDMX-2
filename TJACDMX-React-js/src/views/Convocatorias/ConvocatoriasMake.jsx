@@ -13,8 +13,11 @@ export default function ConvocatoriasMake() {
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
     const {handleSubmitNuevaConvocatoria,estatus} = useConv()
+    const {tipoConvocatoria} = useConsulta();
 
     const onSubmit = (data) => {
+
+        console.log(data)
 
         toast.success('Convocatoria Creada Correctamente',{
             draggable:true
@@ -167,8 +170,11 @@ export default function ConvocatoriasMake() {
                                 name="status" 
                                 id="status" 
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.status ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register('status',{
+                                    required: 'Debe de seleccionar un tipo de estatus'
+                                })}
                             >
-                                <option value="" disabled selected>-- Seleccione una opción --</option>
+                                <option value="" disabled>-- Seleccione una opción --</option>
                                {estatus.map( status => (
                                 <option key={status.id} value={status.id}>{status.estatus}</option>
                                ))}
@@ -176,6 +182,30 @@ export default function ConvocatoriasMake() {
 
                             {errors.status && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.status.message}</p>}
                         </div>
+
+                        <div>
+                            <Label
+                                htmlfor="tipo_convocatoria"
+                            >
+                                Tipo de Convocatoria: 
+                            </Label>
+                            <select 
+                                name="tipo_convocatoria" 
+                                id="tipo_convocatoria" 
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.tipo_convocatoria ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register('tipo_convocatoria',{
+                                    required: 'Debe de seleccionar un tipo de convocatoria'
+                                })}
+                            >
+                                <option value="" disabled >-- Seleccione una opción --</option>
+                               {tipoConvocatoria.map( tipo => (
+                                <option key={tipo.id} value={tipo.id}>{tipo.nombre}</option>
+                               ))}
+                            </select>
+
+                            {errors.tipo_convocatoria && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.tipo_convocatoria.message}</p>}
+                        </div>
+
                     </div>
                 </div>
 
@@ -186,7 +216,7 @@ export default function ConvocatoriasMake() {
                         value="Crear"
                     />
                 </div>
-                <ToastContainer draggable />
+                
             </form>
         </div>
     </div>

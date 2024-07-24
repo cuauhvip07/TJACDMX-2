@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TipoConvocatoria extends Model
 {
     use HasFactory;
+
+    protected $table = 'tipo_convocatoria';
 }

@@ -60,7 +60,13 @@ export default function Convocatorias() {
                                     {convocatoria.tipo_convocatoria.nombre}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <a href="#" className="font-medium text-blue-600 dark:text-blue-500 hover:underline">Ver</a>
+                                    <Link
+                                        to={`/convocatorias/${convocatoria.numero_of}`}
+                                        state={{ convocatoria }} 
+                                    >
+                                        Ver
+                                    </Link>
+                                    
                                 </td>
                             </>
                         

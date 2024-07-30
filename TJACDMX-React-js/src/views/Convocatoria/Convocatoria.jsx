@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { formatearFecha } from "../../helpers/formatearFecha";
 import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/solid";
@@ -50,6 +50,51 @@ export default function Convocatoria() {
                         <p className="  font-bold uppercase md:text-lg">Hora de Finalizacion real: <span className=" font-normal normal-case">{convocatoria.hora_fin_real}</span></p>
                     </div>
                 </div>
+            </div>
+
+            <div className=" mt-10 w-full">
+               <Link 
+                    to={`/convocatorias/${convocatoria.numero_of}/crear`} 
+                    state={convocatoria} 
+                    className=" mb-5 p-2 bg-red-500 text-white rounded-md"
+                >
+                +Añadir nueva orden
+               </Link>
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">
+                                Numero de Orden
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Materia
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Acción
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                        <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                            
+                            <>
+                                
+                                <td className="px-6 py-4">
+                                    1
+                                </td>
+                                <td className="px-6 py-4">
+                                    Español
+                                </td>
+                                <td className="px-6 py-4">
+                                    Ver
+                                </td>
+                            </>
+                        
+                        </tr>
+                        
+                    </tbody>
+                </table>
             </div>
 
 

@@ -7,6 +7,7 @@ import AuthLayout from "./Layouts/AuthLayout";
 import Dashboard from "./views/Dashboard";
 import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
 import Convocatoria from "./views/Convocatoria/Convocatoria";
+import ConvocatoriaMake from "./views/Convocatoria/ConvocatoriaMake";
 
 
 
@@ -46,6 +47,10 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias/:numero_of',
                 element: <Convocatoria/>
+            },
+            {
+                path: '/convocatorias/:numero_of/crear',
+                element: <ConvocatoriaMake/>
             }
         ]
     }

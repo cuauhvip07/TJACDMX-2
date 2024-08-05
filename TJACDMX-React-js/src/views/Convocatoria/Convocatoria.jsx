@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { formatearFecha } from "../../helpers/formatearFecha";
-import { DocumentIcon, MusicalNoteIcon } from "@heroicons/react/24/solid";
 
 
 
@@ -87,7 +86,11 @@ export default function Convocatoria() {
                                     Español
                                 </td>
                                 <td className="px-6 py-4">
-                                    Ver
+                                    <Link 
+                                        to={`/convocatorias/${convocatoria.numero_of}/1`}
+                                    >
+                                        Ver
+                                    </Link>
                                 </td>
                             </>
                         

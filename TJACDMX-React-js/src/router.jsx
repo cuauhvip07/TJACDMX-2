@@ -8,6 +8,7 @@ import Dashboard from "./views/Dashboard";
 import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
 import Convocatoria from "./views/Convocatoria/Convocatoria";
 import ConvocatoriaMake from "./views/Convocatoria/ConvocatoriaMake";
+import ConvocatoriaDetail from "./views/Convocatoria/ConvocatoriaDetail";
 
 
 
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
             {
                 path: '/convocatorias/:numero_of/crear',
                 element: <ConvocatoriaMake/>
+            },
+            {
+                path: '/convocatorias/:numero_of/:num_orden',
+                element: <ConvocatoriaDetail/>
             }
         ]
     }

@@ -1,6 +1,7 @@
 import { useAuth } from "../../hooks/useAuth"
 import { Link } from "react-router-dom";
 import useConsulta from "../../hooks/useConsulta";
+import { useEffect } from "react";
 
 
 
@@ -8,6 +9,10 @@ export default function Convocatorias() {
 
     const {user} = useAuth({middleware:'auth'});
     const {convocatorias} = useConsulta()
+
+    useEffect(() => {
+        convocatorias
+    },[])
 
     return (
   

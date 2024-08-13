@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
        $this->call(TipoConvocatoriaSeeder::class);
        $this->call(TipoPuntoSeeder::class);
        $this->call(EstatusSeeder::class);
+       $this->call(MateriasSeeder::class);
     }
 }

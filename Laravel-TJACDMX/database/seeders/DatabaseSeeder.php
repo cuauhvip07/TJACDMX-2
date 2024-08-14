@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
        $this->call(TipoPuntoSeeder::class);
        $this->call(EstatusSeeder::class);
        $this->call(MateriasSeeder::class);
+       $this->call(TipoVotoSeeder::class);
     }
 }

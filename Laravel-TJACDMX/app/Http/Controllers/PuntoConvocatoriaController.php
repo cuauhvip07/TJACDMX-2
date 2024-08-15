@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PuntoConvocatoria;
 use Illuminate\Http\Request;
 
 class PuntoConvocatoriaController extends Controller
@@ -17,9 +18,22 @@ class PuntoConvocatoriaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $punto_convocatoria = new PuntoConvocatoria;
+        $punto_convocatoria->numero_conv = $request->numero_conv;
+        $punto_convocatoria->numero_of = $request->numero_of;
+        $punto_convocatoria->fecha = $request->fecha;
+        $punto_convocatoria->archivo = 'asassad.jpg';
+        $punto_convocatoria->hora_inicio_real = $request->hora_inicio_real;
+        $punto_convocatoria->hora_fin_real = $request->hora_fin_real;
+        $punto_convocatoria->tipo_convocatoria_id = $request->tipo_convocatoria_id;
+        $punto_convocatoria->estatus_id = $request->estatus_id;
+        $punto_convocatoria->save();
+
+        return[
+            'message' => 'Datos guardados exitosamente'
+        ];
     }
 
     /**

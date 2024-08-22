@@ -18,8 +18,7 @@ export default function ConvocatoriaMake() {
     useAuth({middleware:'admin'})
 
     const {handleSubmitNuevaConvocatoria,estatus} = useConv()
-    const {tipoConvocatoria,materias} = useConsulta();
-
+    const {tipoConvocatoria,materias,tipoPuntos} = useConsulta();
 
     const onSubmit = (data) => {
 
@@ -157,7 +156,9 @@ export default function ConvocatoriaMake() {
                                 })}
                             >
                                 <option value="" disabled >-- Seleccione una opción --</option>
-                                <option value="1"  >Opcion</option>
+                                {tipoPuntos.map(tipo => (
+                                    <option value={tipo.id} key={tipo.id}>{tipo.nombre}</option>
+                                ))}
                                 
                             </select>
 

@@ -180,7 +180,7 @@ export default function ConvocatoriaMake() {
                     <textarea 
                         name="descripcion" 
                         id="descripcion"
-                        placeholder="Comentarios u Obersaciones"
+                        placeholder="Descripción"
                         className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.descripcion ? ' bg-red-100' : 'bg-gray-100'}`}
                         {...register("descripcion",{
                             required: 'Las obervaciones son obligatorias'
@@ -190,6 +190,29 @@ export default function ConvocatoriaMake() {
                     </textarea>
 
                     {errors.descripcion && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.descripcion.message}</p>}
+
+                </div>
+
+                <div className=" mt-5">
+                    <Label
+                        htmlfor="comentarios"
+                    >
+                        Comentarios u Observaciones: 
+                    </Label>
+
+                    <textarea 
+                        name="comentarios" 
+                        id="comentarios"
+                        placeholder="Comentarios u Obersaciones"
+                        className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.comentarios ? ' bg-red-100' : 'bg-gray-100'}`}
+                        {...register("comentarios",{
+                            required: 'Las obervaciones son obligatorias'
+                        })}
+                    >
+
+                    </textarea>
+
+                    {errors.comentarios && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.comentarios.message}</p>}
 
                 </div>
 

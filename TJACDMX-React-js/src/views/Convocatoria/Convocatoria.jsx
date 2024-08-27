@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { formatearFecha } from "../../helpers/formatearFecha";
+import useConsulta from "../../hooks/useConsulta";
 
 
 
@@ -13,6 +14,8 @@ export default function Convocatoria() {
     
     const location = useLocation()
     const convocatoria = location.state?.convocatoria
+
+    const {puntosConvocatoria} = useConsulta()
     
     useEffect(() => {
       if (!convocatoria) {
@@ -59,8 +62,8 @@ export default function Convocatoria() {
                 >
                 +Añadir nueva orden
                </Link>
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                         <tr>
                             <th scope="col" className="px-6 py-3">
                                 Numero de Orden
@@ -69,25 +72,34 @@ export default function Convocatoria() {
                                 Materia
                             </th>
                             <th scope="col" className="px-6 py-3">
+                                Tipo de Punto
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Acción
                             </th>
+                           
                         </tr>
                     </thead>
                     <tbody>
                         
-                        <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                        {puntosConvocatoria.map( punto => (
+                            <tr className="odd:bg-white even:bg-gray-50 border-b " key={punto.numero_orden}>
                             
                             <>
                                 
                                 <td className="px-6 py-4">
-                                    1
+                                    {punto.numero_orden}
                                 </td>
                                 <td className="px-6 py-4">
-                                    Español
+                                    {punto.materia.materia}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {punto.tipo_punto.tipo_punto}
                                 </td>
                                 <td className="px-6 py-4">
                                     <Link 
-                                        to={`/convocatorias/${convocatoria.numero_of}/1`}
+                                        to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}`}
+                                        state={{punto}}
                                     >
                                         Ver
                                     </Link>
@@ -95,6 +107,7 @@ export default function Convocatoria() {
                             </>
                         
                         </tr>
+                        ))}
                         
                     </tbody>
                 </table>

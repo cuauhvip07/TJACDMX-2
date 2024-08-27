@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PuntoConvocatoriaCollection;
 use App\Models\PuntoConvocatoria;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class PuntoConvocatoriaController extends Controller
      */
     public function index()
     {
-        //
+        return new PuntoConvocatoriaCollection(PuntoConvocatoria::all());
     }
 
     /**

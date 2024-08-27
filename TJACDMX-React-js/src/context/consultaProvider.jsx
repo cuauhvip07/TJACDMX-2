@@ -10,6 +10,7 @@ const ConsultaProvider = ({children}) => {
     const [convocatorias,setConvocatorias] = useState([])
     const [materias, setMaterias] = useState([])
     const [tipoPuntos, setTipoPuntos] = useState([])
+    const [puntosConvocatoria, setPuntosConvocatoria] = useState([])
 
     const obtenerTipoConvocatorias = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
@@ -74,11 +75,27 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
+    const obtenerPuntoConvocatoria = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        
+        try {
+            const {data} = await clienteAxios('/api/punto_convocatoria',{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setPuntosConvocatoria(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     useEffect(() => {
         obtenerTipoConvocatorias()
         obtenerConvocatorias()
         obtenerMateria()
         obtenerTipoPunto()
+        obtenerPuntoConvocatoria()
     },[])
 
   
@@ -91,6 +108,7 @@ const ConsultaProvider = ({children}) => {
             convocatorias,
             materias,
             tipoPuntos,
+            puntosConvocatoria
             
         }}
 

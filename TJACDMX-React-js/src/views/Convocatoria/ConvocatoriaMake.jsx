@@ -1,32 +1,36 @@
-import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useConv from "../../hooks/useConv";
 import useConsulta from "../../hooks/useConsulta";
 import Label from "../../utilities/Label";
+import { useLocation } from "react-router-dom";
 
 
 
 
 export default function ConvocatoriaMake() {
 
-    const navigate = useNavigate()
-    const convocatoria = location.state?.convocatoria
+    const location = useLocation()
+    const {convocatoria} = location.state || {}
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
 
-    const {handleSubmitNuevaConvocatoria,estatus} = useConv()
-    const {tipoConvocatoria,materias,tipoPuntos} = useConsulta();
+    const {handleNuevoPuntoConvocatoria} = useConv()
+    const {materias,tipoPuntos} = useConsulta();
+
 
     const onSubmit = (data) => {
 
         
-
-        toast.success('Convocatoria Creada Correctamente',{
-            draggable:true
+        handleNuevoPuntoConvocatoria({...data,
+            convocatoria_id:convocatoria.id,
         })
+        // toast.success('Convocatoria Creada Correctamente',{
+        //     draggable:true
+        // })
+
+
         reset()
     }
 
@@ -152,7 +156,7 @@ export default function ConvocatoriaMake() {
                                 id="tipo_punto" 
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.tipo_punto ? ' bg-red-100' : 'bg-gray-100'}`}
                                 {...register('tipo_punto',{
-                                    required: 'Debe de seleccionar un tipo de convocatoria'
+                                    required: 'Debe de seleccionar un tipo de punto'
                                 })}
                             >
                                 <option value="" disabled >-- Seleccione una opción --</option>
@@ -183,7 +187,7 @@ export default function ConvocatoriaMake() {
                         placeholder="Descripción"
                         className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.descripcion ? ' bg-red-100' : 'bg-gray-100'}`}
                         {...register("descripcion",{
-                            required: 'Las obervaciones son obligatorias'
+                            required: 'La descripcion es obligatoria'
                         })}
                     >
 
@@ -206,7 +210,7 @@ export default function ConvocatoriaMake() {
                         placeholder="Comentarios u Obersaciones"
                         className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.comentarios ? ' bg-red-100' : 'bg-gray-100'}`}
                         {...register("comentarios",{
-                            required: 'Las obervaciones son obligatorias'
+                            required: 'Los comnetarios son obligatorios'
                         })}
                     >
 

@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class PuntoConvocatoria extends Model
 {
     use HasFactory;
+    protected $table = 'punto_convocatoria';
 }

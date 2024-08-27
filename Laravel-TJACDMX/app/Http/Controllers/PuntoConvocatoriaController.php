@@ -20,20 +20,7 @@ class PuntoConvocatoriaController extends Controller
      */
     public function create(Request $request)
     {
-        $punto_convocatoria = new PuntoConvocatoria;
-        $punto_convocatoria->numero_conv = $request->numero_conv;
-        $punto_convocatoria->numero_of = $request->numero_of;
-        $punto_convocatoria->fecha = $request->fecha;
-        $punto_convocatoria->archivo = 'asassad.jpg';
-        $punto_convocatoria->hora_inicio_real = $request->hora_inicio_real;
-        $punto_convocatoria->hora_fin_real = $request->hora_fin_real;
-        $punto_convocatoria->tipo_convocatoria_id = $request->tipo_convocatoria_id;
-        $punto_convocatoria->estatus_id = $request->estatus_id;
-        $punto_convocatoria->save();
-
-        return[
-            'message' => 'Datos guardados exitosamente'
-        ];
+ 
     }
 
     /**
@@ -41,7 +28,23 @@ class PuntoConvocatoriaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $punto_convocatoria = new PuntoConvocatoria;
+        $punto_convocatoria->convocatoria_id = $request->convocatoria_id;
+        $punto_convocatoria->materia_id = $request->materia;
+        $punto_convocatoria->numero_orden = $request->numero_orden;
+        $punto_convocatoria->numero_orden_dia = $request->num_orden;
+        $punto_convocatoria->descripcion = $request->descripcion;
+        $punto_convocatoria->comentarios = $request->comentarios;
+        $punto_convocatoria->tipo_punto_id = $request->tipo_punto;
+        $punto_convocatoria->save();
+
+
+        
+        return[
+            "message" => 'Campos guardados correctamente'
+        ];
+        
     }
 
     /**

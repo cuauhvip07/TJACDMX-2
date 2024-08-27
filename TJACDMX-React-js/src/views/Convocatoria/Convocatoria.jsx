@@ -54,7 +54,7 @@ export default function Convocatoria() {
             <div className=" mt-10 w-full">
                <Link 
                     to={`/convocatorias/${convocatoria.numero_of}/crear`} 
-                    state={convocatoria} 
+                    state={{convocatoria}} 
                     className=" mb-5 p-2 bg-red-500 text-white rounded-md"
                 >
                 +Añadir nueva orden

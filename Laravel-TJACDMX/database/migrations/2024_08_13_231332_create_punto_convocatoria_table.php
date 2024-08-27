@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('numero_orden');
             $table->integer('numero_orden_dia');
             $table->text('descripcion');
+            $table->text('comentarios');
             $table->foreignId('materia_id')->constrained('materias','id')->onDelete('cascade');
             $table->foreignId('tipo_punto_id')->constrained('tipo_punto','id')->onDelete('cascade');
             $table->timestamps();

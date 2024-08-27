@@ -7,6 +7,7 @@ use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\PuntoConvocatoriaController;
 use App\Http\Controllers\TipoConvocatoriaController;
 use App\Http\Controllers\TipoPuntoController;
+use App\Http\Controllers\TipoVotoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('/punto_convocatoria',PuntoConvocatoriaController::class);
     Route::apiResource('/materia',MateriasController::class);
     Route::apiResource('/tipo_punto',TipoPuntoController::class);
+    Route::apiResource('/tipo_voto',TipoVotoController::class);
 });
 
 Route::post('/registro',[AuthController::class, 'register']);

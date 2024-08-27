@@ -1,14 +1,24 @@
+import { useForm } from "react-hook-form"
 import { useLocation } from "react-router-dom"
+import useConsulta from "../../hooks/useConsulta"
 
 
 export default function ConvocatoriaDetail() {
 
+    const {register,handleSubmit, formState:{errors}, reset} = useForm()
+
     const location = useLocation()
 
     const puntoConvocatoria = location.state?.punto || {}
-    console.log(puntoConvocatoria)
+    
+    const {tipoVotos} = useConsulta()
 
     const {numero_orden,descripcion,comentarios,tipo_punto:{tipo_punto},materia:{materia},numero_orden_dia} = puntoConvocatoria
+
+
+    const onSubmit = () => {
+        console.log('submit')
+    }
 
   return (
     <>
@@ -16,15 +26,20 @@ export default function ConvocatoriaDetail() {
         <div className=" grid grid-cols-1 md:grid-cols-[3fr_9fr] mt-5 mx-auto container">
         
             <aside className="flex justify-center mb-5 md:mb-0">
-                <div className="">
-                    <h2 className=" font-bold">Votaciones.</h2>
-                    <div className=" space-y-2 mt-3">
-                        <p>Juan: A favor</p>
-                        <p>Carlos: En contra</p>
-                        <p>Juan: Abstinencia</p>
-                        <p>Juan: Inasistencia</p>
+                <form 
+                    onSubmit={handleSubmit(onSubmit)}
+
+                >
+                    <div className="">
+                        <h2 className=" font-bold">Votaciones.</h2>
+                        <div className=" space-y-2 mt-3">
+                            <p>Juan: A favor</p>
+                            <p>Carlos: En contra</p>
+                            <p>Juan: Abstinencia</p>
+                            <p>Juan: Inasistencia</p>
+                        </div>
                     </div>
-                </div>
+                </form>
             </aside>
 
             <div className=" shadow-lg p-4 md:w-10/12 ">

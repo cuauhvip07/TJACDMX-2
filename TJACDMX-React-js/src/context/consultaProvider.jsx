@@ -106,16 +106,6 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
-    useEffect(() => {
-        obtenerTipoConvocatorias()
-        obtenerConvocatorias()
-        obtenerMateria()
-        obtenerTipoPunto()
-        obtenerPuntoConvocatoria()
-        obtenerTipoVoto()
-    },[])
-
-  
 
     return (
         <ConsultaContext.Provider
@@ -127,6 +117,12 @@ const ConsultaProvider = ({children}) => {
             tipoPuntos,
             puntosConvocatoria,
             tipoVotos,
+            obtenerConvocatorias,
+            obtenerTipoConvocatorias,
+            obtenerMateria,
+            obtenerTipoPunto,
+            obtenerPuntoConvocatoria,
+            obtenerTipoVoto,
             
         }}
 

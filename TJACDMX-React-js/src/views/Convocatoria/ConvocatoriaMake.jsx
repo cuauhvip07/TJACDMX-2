@@ -4,6 +4,7 @@ import useConv from "../../hooks/useConv";
 import useConsulta from "../../hooks/useConsulta";
 import Label from "../../utilities/Label";
 import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 
 
@@ -17,7 +18,12 @@ export default function ConvocatoriaMake() {
     useAuth({middleware:'admin'})
 
     const {handleNuevoPuntoConvocatoria} = useConv()
-    const {materias,tipoPuntos} = useConsulta();
+    const {obtenerMateria,obtenerTipoPunto,materias,tipoPuntos} = useConsulta();
+
+    useEffect(() => {
+        obtenerMateria()
+        obtenerTipoPunto()
+    },[])
 
 
     const onSubmit = (data) => {

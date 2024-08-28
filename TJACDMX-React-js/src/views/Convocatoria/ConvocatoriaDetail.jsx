@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form"
 import { useLocation } from "react-router-dom"
 import useConsulta from "../../hooks/useConsulta"
+import { useEffect } from "react"
 
 
 export default function ConvocatoriaDetail() {
@@ -11,7 +12,7 @@ export default function ConvocatoriaDetail() {
 
     const puntoConvocatoria = location.state?.punto || {}
     
-    const {tipoVotos} = useConsulta()
+   
 
     const {numero_orden,descripcion,comentarios,tipo_punto:{tipo_punto},materia:{materia},numero_orden_dia} = puntoConvocatoria
 

@@ -9,6 +9,12 @@ import ConvocatoriasMake from "./views/Convocatorias/ConvocatoriasMake";
 import Convocatoria from "./views/Convocatoria/Convocatoria";
 import ConvocatoriaMake from "./views/Convocatoria/ConvocatoriaMake";
 import ConvocatoriaDetail from "./views/Convocatoria/ConvocatoriaDetail";
+import Asistencia from "./views/Magistrados/Asistencia";
+
+
+import { lazy, Suspense } from "react";
+
+const Informacion = lazy(() => import('./views/Informacion'))
 
 
 
@@ -44,6 +50,12 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias/crear',
                 element: <ConvocatoriasMake/>
+            },
+            {
+                path:'/convocatorias/informacion/:numero_of',
+                element: <Suspense fallback="Cargando...">
+                    <Informacion/>
+                </Suspense>
             },
             {
                 path:'/convocatorias/:numero_of',

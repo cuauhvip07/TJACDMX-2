@@ -8,10 +8,10 @@ import { useEffect } from "react";
 export default function Convocatorias() {
 
     const {user} = useAuth({middleware:'auth'});
-    const {convocatorias} = useConsulta()
+    const {obtenerConvocatorias, convocatorias} = useConsulta()
 
     useEffect(() => {
-        convocatorias
+        obtenerConvocatorias()
     },[])
 
     return (
@@ -25,8 +25,8 @@ export default function Convocatorias() {
                 </Link>
             )}
 
-            <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400 mt-5">
-                <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
+                <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                     <tr>
                         <th scope="col" className="px-6 py-3">
                             Numero de Convocatoria
@@ -49,10 +49,10 @@ export default function Convocatorias() {
                 </thead>
                 <tbody>
                     {convocatorias.map(convocatoria => (
-                        <tr className="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" key={convocatoria.id} >
+                        <tr className="odd:bg-white  even:bg-gray-50 border-b dark:border-gray-700" key={convocatoria.id} >
                             
                             <>
-                                <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {convocatoria.numero_conv}
                                 </td>
                                 <td className="px-6 py-4">
@@ -66,6 +66,7 @@ export default function Convocatorias() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <Link
+                                        // to={`/convocatorias/informacion/${convocatoria.numero_of}`}
                                         to={`/convocatorias/${convocatoria.numero_of}`}
                                         state={{ convocatoria }} 
                                     >

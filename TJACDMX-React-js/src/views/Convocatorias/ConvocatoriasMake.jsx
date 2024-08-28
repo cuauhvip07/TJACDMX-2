@@ -5,16 +5,23 @@ import "react-toastify/dist/ReactToastify.css";
 import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
 import useConsulta from "../../hooks/useConsulta";
-import { useState } from "react";
+import { useEffect } from "react";
 
 
 
 export default function ConvocatoriasMake() {
 
+    const {obtenerTipoConvocatorias,tipoConvocatoria} = useConsulta();
+    const {handleSubmitNuevaConvocatoria,estatus} = useConv()
+
+    useEffect(() => {
+        obtenerTipoConvocatorias()
+    },[])
+
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
-    const {handleSubmitNuevaConvocatoria,estatus} = useConv()
-    const {tipoConvocatoria} = useConsulta();
+    
+    
 
     // const [archivo,setArchivo] = useState(null)
 

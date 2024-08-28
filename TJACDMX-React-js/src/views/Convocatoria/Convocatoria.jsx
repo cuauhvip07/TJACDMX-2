@@ -7,6 +7,13 @@ import useConsulta from "../../hooks/useConsulta";
 
 
 export default function Convocatoria() {
+
+    const {puntosConvocatoria,obtenerPuntoConvocatoria} = useConsulta()
+
+    useEffect(() => {
+        obtenerPuntoConvocatoria()
+    },[])
+
     const navigate = useNavigate()
 
 
@@ -15,7 +22,7 @@ export default function Convocatoria() {
     const location = useLocation()
     const convocatoria = location.state?.convocatoria
 
-    const {puntosConvocatoria} = useConsulta()
+    
     
     useEffect(() => {
       if (!convocatoria) {

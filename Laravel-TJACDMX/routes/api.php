@@ -6,6 +6,7 @@ use App\Http\Controllers\EstatusController;
 use App\Http\Controllers\MateriasController;
 use App\Http\Controllers\PuntoConvocatoriaController;
 use App\Http\Controllers\TipoConvocatoriaController;
+use App\Http\Controllers\TipoIntegranteController;
 use App\Http\Controllers\TipoPuntoController;
 use App\Http\Controllers\TipoVotoController;
 use Illuminate\Http\Request;
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('/materia',MateriasController::class);
     Route::apiResource('/tipo_punto',TipoPuntoController::class);
     Route::apiResource('/tipo_voto',TipoVotoController::class);
+    Route::apiResource('/tipo_integrante',TipoIntegranteController::class);
 });
 
 Route::post('/registro',[AuthController::class, 'register']);

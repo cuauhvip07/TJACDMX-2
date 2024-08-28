@@ -18,5 +18,6 @@ class DatabaseSeeder extends Seeder
        $this->call(EstatusSeeder::class);
        $this->call(MateriasSeeder::class);
        $this->call(TipoVotoSeeder::class);
+       $this->call(TipoIntegranteSeeder::class);
     }
 }

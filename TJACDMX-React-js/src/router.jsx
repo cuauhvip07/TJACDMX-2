@@ -14,6 +14,8 @@ import Asistencia from "./views/Magistrados/Asistencia";
 
 import { lazy, Suspense } from "react";
 import Votacion from "./views/Magistrados/Votacion";
+import Integrantes from "./views/Magistrados/Integrantes";
+import AddIntegrante from "./views/Magistrados/AddIntegrante";
 
 const Informacion = lazy(() => import('./views/Informacion'))
 
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
             {
                 index: true,
                 element: <Dashboard/> 
+            },
+            {
+                path:'/magistrados',
+                element: <Integrantes/>
+            },
+            {
+                path:'/magistrados/nuevo-integrante',
+                element: <AddIntegrante/>
             },
             {
                 path:'/convocatorias',

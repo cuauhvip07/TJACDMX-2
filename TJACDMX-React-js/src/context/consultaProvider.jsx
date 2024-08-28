@@ -12,6 +12,7 @@ const ConsultaProvider = ({children}) => {
     const [tipoPuntos, setTipoPuntos] = useState([])
     const [puntosConvocatoria, setPuntosConvocatoria] = useState([])
     const [tipoVotos, setTipoVotos] = useState([])
+    const [tipoIntegrantes, setTipoIntegrantes] = useState([])
 
     const obtenerTipoConvocatorias = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
@@ -106,6 +107,21 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
+    const obtenerTipoIntegrante = async () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        
+        try {
+            const {data} = await clienteAxios('/api/tipo_integrante',{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+            setTipoIntegrantes(data.data)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     return (
         <ConsultaContext.Provider
@@ -117,12 +133,14 @@ const ConsultaProvider = ({children}) => {
             tipoPuntos,
             puntosConvocatoria,
             tipoVotos,
+            tipoIntegrantes,
             obtenerConvocatorias,
             obtenerTipoConvocatorias,
             obtenerMateria,
             obtenerTipoPunto,
             obtenerPuntoConvocatoria,
             obtenerTipoVoto,
+            obtenerTipoIntegrante,
             
         }}
 

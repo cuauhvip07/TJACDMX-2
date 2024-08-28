@@ -105,8 +105,8 @@ export default function Convocatoria() {
                                 </td>
                                 <td className="px-6 py-4">
                                     <Link 
-                                        to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}`}
-                                        state={{punto}}
+                                        to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/menu`}
+                                        state={{punto,convocatoria}}
                                     >
                                         Ver
                                     </Link>

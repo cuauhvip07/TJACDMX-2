@@ -13,6 +13,7 @@ import Asistencia from "./views/Magistrados/Asistencia";
 
 
 import { lazy, Suspense } from "react";
+import Votacion from "./views/Magistrados/Votacion";
 
 const Informacion = lazy(() => import('./views/Informacion'))
 
@@ -52,12 +53,6 @@ const router = createBrowserRouter([
                 element: <ConvocatoriasMake/>
             },
             {
-                path:'/convocatorias/informacion/:numero_of',
-                element: <Suspense fallback="Cargando...">
-                    <Informacion/>
-                </Suspense>
-            },
-            {
                 path:'/convocatorias/:numero_of',
                 element: <Convocatoria/>
             },
@@ -66,9 +61,19 @@ const router = createBrowserRouter([
                 element: <ConvocatoriaMake/>
             },
             {
+                path:'/convocatorias/:numero_of/:numero_orden/menu',
+                element: <Suspense fallback="Cargando...">
+                    <Informacion/>
+                </Suspense>
+            },
+            {
                 path: '/convocatorias/:numero_of/:num_orden',
                 element: <ConvocatoriaDetail/>
-            }
+            },
+            {
+                path: '/convocatorias/:numero_of/:num_orden/votacion',
+                element: <Votacion/>
+            },
         ]
     }
 ])

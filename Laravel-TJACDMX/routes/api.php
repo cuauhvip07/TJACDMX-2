@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('/tipo_voto',TipoVotoController::class);
     Route::apiResource('/tipo_integrante',TipoIntegranteController::class);
     Route::apiResource('/integrantes',IntegrantesController::class);
+    Route::apiResource('/integrantes/{id}',IntegrantesController::class);
 });
 
 Route::post('/registro',[AuthController::class, 'register']);

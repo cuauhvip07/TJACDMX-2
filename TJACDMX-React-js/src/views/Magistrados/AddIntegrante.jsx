@@ -1,7 +1,7 @@
 
 import { useForm } from "react-hook-form";
 import Label from "../../utilities/Label";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,15 +13,38 @@ import { useEffect } from "react";
 export default function AddIntegrante() {
    
     const { obtenerTipoIntegrante,tipoIntegrantes} = useConsulta()
-    const { handleSubmitNuevoIntegrante } = useConv()
+    const { handleSubmitNuevoIntegrante,handleSubmitUpdateIntegrante } = useConv()
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const integrante = location.state?.integrante || false;
+
+    console.log(integrante)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
 
+    
+
     useEffect(() => {
         obtenerTipoIntegrante()
+
+        if(integrante){
+            
+            reset({
+                id: integrante.id,
+                nombre: integrante.nombre,
+                apellido_paterno: integrante.apellido_paterno,
+                apellido_materno: integrante.apellido_materno,
+                fecha_inicio:integrante.fecha_inicio,
+                fecha_fin: integrante.fecha_fin,
+                tipo_integrante: integrante.tipo_integrante_id
+
+
+            });
+        }
+        
     },[])
 
     
@@ -29,13 +52,22 @@ export default function AddIntegrante() {
 
     const onSubmit = async (data) => {
 
+        
         try {
+            if(integrante){
+                await handleSubmitUpdateIntegrante(data)
+                setTimeout(() => {
+                    navigate('/magistrados')
+                }, 2000);
+                return
+            }
+
             await  handleSubmitNuevoIntegrante(data)
 
             setTimeout(() => {
                 navigate('/magistrados')
             }, 2000);
-           
+
         } catch (error) {
             console.log(error)
         }
@@ -192,7 +224,7 @@ export default function AddIntegrante() {
                     <input 
                         type="submit" 
                         className=" bg-orange-400 w-full md:w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
-                        value="Crear"
+                        value={integrante ? "Actualizar" : "Agregar integrante"}
                     />
                 </div>
                 

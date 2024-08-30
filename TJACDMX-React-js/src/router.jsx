@@ -55,6 +55,10 @@ const router = createBrowserRouter([
                 element: <AddIntegrante/>
             },
             {
+                path: '/magistrados/actualizar/:id',
+                element: <AddIntegrante/>
+            },
+            {
                 path:'/convocatorias',
                 element: <Convocatorias/>
             },

@@ -66,7 +66,13 @@ class IntegrantesController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $integrante = Integrante::find($id);
+        $integrante->update($request->all());
+
+        return[
+            'message'=> 'Integrante actualizado correctamente',
+        ];
     }
 
     /**

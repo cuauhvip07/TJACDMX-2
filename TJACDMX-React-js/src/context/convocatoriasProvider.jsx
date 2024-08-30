@@ -86,6 +86,31 @@ const ConvocatoriasProvider = ({ children }) => {
         }
     }
 
+    const handleSubmitUpdateIntegrante = async (datos) => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+        try {
+
+            const {data} = await clienteAxios.put(`/api/integrantes/${datos.id}`,{
+                nombre: datos.nombre,
+                apellido_paterno: datos.apellido_paterno,
+                apellido_materno: datos.apellido_materno,
+                fecha_inicio:datos.fecha_inicio,
+                fecha_fin: datos.fecha_fin
+            }, {
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            toast.success(data.message,{
+                droggable:true
+            })
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(() => {
         obtenerEstatus()
@@ -104,6 +129,7 @@ const ConvocatoriasProvider = ({ children }) => {
                 estatus,
                 handleNuevoPuntoConvocatoria,
                 handleSubmitNuevoIntegrante,
+                handleSubmitUpdateIntegrante,
             }}
         >
             {children}

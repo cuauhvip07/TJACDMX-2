@@ -2,6 +2,7 @@
 import { Link } from "react-router-dom"
 import useConsulta from "../../hooks/useConsulta"
 import { useEffect } from "react"
+import { formatearFecha } from "../../helpers/formatearFecha"
 
 export default function Integrantes() {
 
@@ -10,6 +11,7 @@ export default function Integrantes() {
     useEffect(() => {
         obtenerIntegrantes()
     },[])
+
 
   return (
     <div>
@@ -30,6 +32,11 @@ export default function Integrantes() {
                         <th scope="col" className="px-6 py-3">
                             Apellidos
                         </th>
+
+                        <th scope="col" className="px-6 py-3">
+                            Cargo
+                        </th>
+
                         <th scope="col" className="px-6 py-3">
                             Fecha de inicio del cargo
                         </th>
@@ -37,6 +44,7 @@ export default function Integrantes() {
                         <th scope="col" className="px-6 py-3">
                             Fecha de finalización del cargo
                         </th>
+
 
                         <th scope="col" className="px-6 py-3">
                             Acciones
@@ -55,16 +63,30 @@ export default function Integrantes() {
                                 <td className="px-6 py-4">
                                 {`${integrante.apellido_paterno} ${integrante.apellido_materno}`}
                                 </td>
-                                <td className="px-6 py-4">
-                                    {integrante.fecha_inicio}
+                                <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {integrante.tipo_integrante.tipo_integrante}
                                 </td>
                                 <td className="px-6 py-4">
-                                {integrante.fecha_fin}
+                                    {formatearFecha(integrante.fecha_inicio)}
+                                </td>
+                                <td className="px-6 py-4">
+                                {formatearFecha(integrante.fecha_fin)}
                                 </td>
 
                                 <td className="px-6 py-4">
-                                <p>Actualizar</p>
-                                <p>Eliminar</p>
+                                    <div className=" flex flex-col gap-5">
+                                        <Link 
+                                            to={`/magistrados/actualizar/${integrante.id}`} 
+                                            className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black py-0.5 inline-block"
+                                            state={{integrante}}
+                                        >
+                                            <p>Actualizar</p>
+                                        </Link>
+
+                                        <a href="" className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold">
+                                            <p>Eliminar</p>
+                                        </a>
+                                    </div>
                                 </td>
                 
                             </tr>

@@ -20,8 +20,12 @@ class IntegranteResource extends JsonResource
             'nombre'=>$this->nombre,
             'apellido_paterno'=>$this->apellido_paterno,
             'apellido_materno'=>$this->apellido_materno,
-            'fecha_inicio'=>Carbon::parse($this->fecha_inicio)->format('d F Y'),
-            'fecha_fin'=>Carbon::parse($this->fecha_fin)->format('d F Y')
+            'fecha_inicio'=>$this->fecha_inicio,
+            'fecha_fin'=>$this->fecha_fin,
+            'tipo_integrante'=> [
+                'tipo_integrante'=> $this->tipo_integrante->tipo
+            ],
+            'tipo_integrante_id'=>$this->tipo_integrante_id
         ];
     }
 }

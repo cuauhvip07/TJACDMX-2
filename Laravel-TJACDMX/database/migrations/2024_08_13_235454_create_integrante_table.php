@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nombre');
             $table->string('apellido_paterno');
-            $table->string('apellido_matermo');
+            $table->string('apellido_materno');
             $table->date('fecha_inicio');
             $table->date('fecha_fin');
             $table->foreignId('tipo_integrante_id')->constrained('tipo_integrante','id')->onDelete('cascade');

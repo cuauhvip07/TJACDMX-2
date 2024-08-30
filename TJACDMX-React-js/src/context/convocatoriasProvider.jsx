@@ -35,7 +35,6 @@ const ConvocatoriasProvider = ({ children }) => {
     }
 
     const handleNuevoPuntoConvocatoria = async (datos) => {
-        console.log(datos)
         const token = localStorage.getItem('AUTH_TOKEN');
 
         try {
@@ -68,6 +67,25 @@ const ConvocatoriasProvider = ({ children }) => {
         }
     };
 
+    const handleSubmitNuevoIntegrante = async (datos) => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+        try {
+            const {data} = await clienteAxios.post('/api/integrantes',datos,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            toast.success(data.message,{
+                droggable: true
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(() => {
         obtenerEstatus()
@@ -85,6 +103,7 @@ const ConvocatoriasProvider = ({ children }) => {
                 handleSubmitNuevaConvocatoria,
                 estatus,
                 handleNuevoPuntoConvocatoria,
+                handleSubmitNuevoIntegrante,
             }}
         >
             {children}

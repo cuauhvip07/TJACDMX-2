@@ -1,7 +1,7 @@
 
 import { useForm } from "react-hook-form";
 import Label from "../../utilities/Label";
-import { toast } from 'react-toastify';
+import { useNavigate } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
 import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
@@ -13,6 +13,9 @@ import { useEffect } from "react";
 export default function AddIntegrante() {
    
     const { obtenerTipoIntegrante,tipoIntegrantes} = useConsulta()
+    const { handleSubmitNuevoIntegrante } = useConv()
+
+    const navigate = useNavigate()
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
@@ -24,12 +27,19 @@ export default function AddIntegrante() {
     
     
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
 
+        try {
+            await  handleSubmitNuevoIntegrante(data)
 
-        toast.success('Convocatoria Creada Correctamente',{
-            draggable:true
-        })
+            setTimeout(() => {
+                navigate('/magistrados')
+            }, 2000);
+           
+        } catch (error) {
+            console.log(error)
+        }
+
         reset()
     }
 
@@ -106,71 +116,74 @@ export default function AddIntegrante() {
                         </div>
 
                         <div>
-                            <Label
-                                htmlfor='tipo_integrante'
-                            >
+                            <Label htmlFor="tipo_integrante">
                                 Tipo de Integrante:
                             </Label>
 
                             <select 
                                 name="tipo_integrante" 
-                                className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.tipo_integrante ? ' bg-red-100' : 'bg-gray-100'}`}
                                 id="tipo_integrante"
+                                className={`border rounded-xl py-1 w-full focus:bg-gray-300 ${errors.tipo_integrante ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("tipo_integrante", {
+                                    required: "Debe seleccionar un tipo de integrante"
+                                })}
                             >
-                           
-                            {tipoIntegrantes.map(integrante => (
-                                <option key={integrante.id} value={integrante.id}>{integrante.tipo}</option>
-                            ))}
+                                <option value="" disabled>-- Seleccione --</option>
+                                {tipoIntegrantes.map(integrante => (
+                                    <option key={integrante.id} value={integrante.id}>{integrante.tipo}</option>
+                                ))}
+                            </select>
 
-                           </select>
-
-                            {errors.tipo_integrante && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.tipo_integrante.message}</p>}
-
+                            {errors.tipo_integrante && (
+                                <p className="bg-red-300 border-l-4 border-red-600 text-center uppercase rounded text-sm mt-2">
+                                    {errors.tipo_integrante.message}
+                                </p>
+                            )}
                         </div>
 
-                        <div className=" flex justify-between">
+                    
 
                         <div className="" >
                             <Label
-                                htmlfor='nombre'
+                                htmlfor='fecha_inicio'
                             >
-                                Nombre: 
+                                Fecha de Inicio en el cargo: 
                             </Label>
 
                             <input
                                 type='date'
-                                id='nombre'
-                                className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.nombre ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("nombre",{
-                                    required: "El nombre es obligatorio"
+                                id='fecha_inicio'
+                                className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.fecha_inicio ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("fecha_inicio",{
+                                    required: "La fecha de inicio es obligatoria"
                                 })}
                             />
 
-                            {errors.nombre && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.nombre.message}</p>}
+                            {errors.fecha_inicio && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fecha_inicio.message}</p>}
 
                         </div>
 
                         <div>
                             <Label
-                                htmlfor='nombre'
+                                htmlfor='fecha_fin'
                             >
-                                Nombre: 
+                                Fecha de finalizacion en el cargo: 
                             </Label>
 
                             <input
                                 type='date'
-                                id='nombre'
-                                className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.nombre ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("nombre",{
-                                    required: "El nombre es obligatorio"
+                                id='fecha_fin'
+                                className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.fecha_fin ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("fecha_fin",{
+                                    required: "La fecha de finalizacion es obligatoria"
                                 })}
                             />
 
-                            {errors.nombre && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.nombre.message}</p>}
+                            {errors.fecha_fin && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fecha_fin.message}</p>}
 
                         </div>
 
-                        </div>
+                        
 
                     </div>
                 

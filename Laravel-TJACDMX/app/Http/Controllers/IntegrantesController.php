@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\IntegranteCollection;
 use App\Models\Integrante;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class IntegrantesController extends Controller
      */
     public function index()
     {
-        
+        return new IntegranteCollection(Integrante::all());
     }
 
     /**

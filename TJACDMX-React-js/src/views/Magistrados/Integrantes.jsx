@@ -1,9 +1,16 @@
 
 import { Link } from "react-router-dom"
+import useConsulta from "../../hooks/useConsulta"
+import { useEffect } from "react"
 
 export default function Integrantes() {
 
-    
+    const {obtenerIntegrantes,integrantes} = useConsulta()
+
+    useEffect(() => {
+        obtenerIntegrantes()
+    },[])
+
   return (
     <div>
         <div className=" bg-red-500 inline-block text-white ml-5 mt-5 p-2 rounded-lg">
@@ -31,25 +38,38 @@ export default function Integrantes() {
                             Fecha de finalización del cargo
                         </th>
 
+                        <th scope="col" className="px-6 py-3">
+                            Acciones
+                        </th>
+
                     </tr>
                 </thead>
                 <tbody>
-                    <tr className="odd:bg-white  even:bg-gray-50 border-b dark:border-gray-700" >
+                    {integrantes.map(integrante => (
+                        <>
+                            <tr className="odd:bg-white  even:bg-gray-50 border-b dark:border-gray-700" key={integrante.id}>
                         
-                        <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                            Cuauh
-                        </td>
-                        <td className="px-6 py-4">
-                            Villalba Menosaza xomdoxpasm
-                        </td>
-                        <td className="px-6 py-4">
-                            12/12/12
-                        </td>
-                        <td className="px-6 py-4">
-                            15/2/98
-                        </td>
-                    
-                    </tr>
+                                <td scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    {integrante.nombre}
+                                </td>
+                                <td className="px-6 py-4">
+                                {`${integrante.apellido_paterno} ${integrante.apellido_materno}`}
+                                </td>
+                                <td className="px-6 py-4">
+                                    {integrante.fecha_inicio}
+                                </td>
+                                <td className="px-6 py-4">
+                                {integrante.fecha_fin}
+                                </td>
+
+                                <td className="px-6 py-4">
+                                <p>Actualizar</p>
+                                <p>Eliminar</p>
+                                </td>
+                
+                            </tr>
+                        </>
+                    ))}
                 </tbody>
             </table>
         </div>

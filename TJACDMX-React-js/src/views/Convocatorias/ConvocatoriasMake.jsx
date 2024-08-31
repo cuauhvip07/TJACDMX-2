@@ -6,6 +6,7 @@ import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
 import useConsulta from "../../hooks/useConsulta";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -13,6 +14,8 @@ export default function ConvocatoriasMake() {
 
     const {obtenerTipoConvocatorias,tipoConvocatoria} = useConsulta();
     const {handleSubmitNuevaConvocatoria,estatus} = useConv()
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         obtenerTipoConvocatorias()
@@ -23,24 +26,19 @@ export default function ConvocatoriasMake() {
     
     
 
-    // const [archivo,setArchivo] = useState(null)
-
-    // const handleFileChange = (e) => {
-    //     e.preventDefault()
-    //     setArchivo(e.target.files[0]);
-    // } 
-
-    // const formData = new FormData()
-    // formData.append('file',archivo)
 
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
 
-        // const {archivo,...datos} = data
-        // let archivoModificado = formData
-        // const dataModificado = {archivo:archivoModificado, ...datos}
-        
-        handleSubmitNuevaConvocatoria(data)
+        try {
+            await handleSubmitNuevaConvocatoria(data)
+            
+            setTimeout(() => {
+                navigate(`/convocatorias`)
+            }, 2000);
+        } catch (error) {
+            console.log(error)
+        }
 
         toast.success('Convocatoria Creada Correctamente',{
             draggable:true

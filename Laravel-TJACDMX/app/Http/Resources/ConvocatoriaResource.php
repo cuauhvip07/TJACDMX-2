@@ -27,7 +27,9 @@ class ConvocatoriaResource extends JsonResource
             ],
             'tipo_convocatoria' => [
                 'nombre' => $this->tipoConvocatoria->nombre
-            ]
+            ],
+            'tipo_convocatoria_id' => $this->tipo_convocatoria_id,
+            'estatus_id' => $this->estatus_id
         ];
     }
 }

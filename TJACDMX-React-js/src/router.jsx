@@ -67,6 +67,10 @@ const router = createBrowserRouter([
                 element: <ConvocatoriasMake/>
             },
             {
+                path:'/convocatorias/actualizar/:numero_of',
+                element: <ConvocatoriasMake/>
+            },
+            {
                 path:'/convocatorias/:numero_of',
                 element: <Convocatoria/>
             },

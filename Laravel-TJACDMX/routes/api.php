@@ -23,6 +23,7 @@ Route::middleware('auth:sanctum')->group(function(){
     Route::apiResource('/estatus-convocatoria', EstatusController::class);
     Route::apiResource('/tipo_convocatoria', TipoConvocatoriaController::class);
     Route::apiResource('/nueva_convocatoria',ConvocatoriaController::class);
+    Route::apiResource('/nueva_convocatoria/{id}',ConvocatoriaController::class);
     Route::apiResource('/punto_convocatoria',PuntoConvocatoriaController::class);
     Route::apiResource('/materia',MateriasController::class);
     Route::apiResource('/tipo_punto',TipoPuntoController::class);

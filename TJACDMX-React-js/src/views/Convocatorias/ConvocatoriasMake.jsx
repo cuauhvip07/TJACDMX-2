@@ -6,36 +6,60 @@ import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
 import useConsulta from "../../hooks/useConsulta";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 
 
 export default function ConvocatoriasMake() {
 
     const {obtenerTipoConvocatorias,tipoConvocatoria} = useConsulta();
-    const {handleSubmitNuevaConvocatoria,estatus} = useConv()
+    const {handleSubmitUpdateConvocatoria,handleSubmitNuevaConvocatoria,estatus} = useConv()
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const convocatoria = location.state?.convocatoria || false ;
 
     useEffect(() => {
         obtenerTipoConvocatorias()
+        if(convocatoria){
+            reset({
+                id: convocatoria.id,
+                numero_conv: convocatoria.numero_conv,
+                numero_of: convocatoria.numero_of,
+                fecha: convocatoria.fecha,
+                hora_inicio_real: convocatoria.hora_inicio_real,
+                hora_fin_real: convocatoria.hora_fin_real,
+                estatus_id: convocatoria.estatus_id,
+                tipo_convocatoria_id: convocatoria.tipo_convocatoria_id
+            })
+        }
     },[])
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
     
     
-
+    // console.log(convocatoria)
 
 
     const onSubmit = async (data) => {
 
         try {
+
+            if(convocatoria){
+                await handleSubmitUpdateConvocatoria(data);
+                setTimeout(() => {
+                    navigate('/convocatorias')
+                }, 2000);
+                return
+            }
+
             await handleSubmitNuevaConvocatoria(data)
-            
             setTimeout(() => {
                 navigate(`/convocatorias`)
             }, 2000);
+
         } catch (error) {
             console.log(error)
         }

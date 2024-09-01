@@ -65,13 +65,28 @@ export default function Convocatorias() {
                                     {convocatoria.tipo_convocatoria.nombre}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <Link
-                                        // to={`/convocatorias/informacion/${convocatoria.numero_of}`}
-                                        to={`/convocatorias/${convocatoria.numero_of}`}
-                                        state={{ convocatoria }} 
-                                    >
-                                        Ver
-                                    </Link>
+                                    
+                                    <div className=" flex flex-col gap-3">
+                                        <Link
+                                            className=" bg-blue-400 hover:bg-blue-300 text-center rounded-full text-black py-0.5 inline-block font-bold"
+                                            to={`/convocatorias/${convocatoria.numero_of}`}
+                                            state={{ convocatoria }} 
+                                        >
+                                            Ver
+                                        </Link>
+
+                                        <Link 
+                                            to={`/convocatorias/actualizar/${convocatoria.numero_of}`}
+                                            className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black py-0.5 inline-block"
+                                            state={{ convocatoria }}
+                                        >
+                                            <p>Actualizar</p>
+                                        </Link>
+
+                                        <a href="" className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold">
+                                            <p>Eliminar</p>
+                                        </a>
+                                    </div>
                                     
                                 </td>
                             </>

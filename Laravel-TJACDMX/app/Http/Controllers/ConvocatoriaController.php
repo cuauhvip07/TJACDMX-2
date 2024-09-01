@@ -68,9 +68,14 @@ class ConvocatoriaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Convocatoria $convocatoria)
+    public function update(Request $request, string $id)
     {
-        //
+        $convocatoria = Convocatoria::find($id);
+        $convocatoria->update($request->all());
+
+        return [
+            'message' => 'Convocatoria actualizada correctamente'
+        ];
     }
 
     /**

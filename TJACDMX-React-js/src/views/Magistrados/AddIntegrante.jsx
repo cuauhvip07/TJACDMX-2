@@ -20,7 +20,6 @@ export default function AddIntegrante() {
 
     const integrante = location.state?.integrante || false;
 
-    console.log(integrante)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})

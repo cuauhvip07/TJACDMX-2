@@ -13,7 +13,7 @@ class ConvocatoriaController extends Controller
      */
     public function index()
     {
-        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->with('estatus')->get());
+        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->with('estatus')->orderBy('numero_conv','ASC')->get());
     }
 
     /**
@@ -81,8 +81,14 @@ class ConvocatoriaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Convocatoria $convocatoria)
+    public function destroy(Convocatoria $convocatoria, string $id)
     {
-        //
+
+        $convocatoria = Convocatoria::find($id);
+        $convocatoria->delete();
+
+        return [
+            'message' => 'Convocatoria eliminada correctamente'
+        ];
     }
 }

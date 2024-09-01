@@ -1,18 +1,32 @@
 import { useAuth } from "../../hooks/useAuth"
 import { Link } from "react-router-dom";
-import useConsulta from "../../hooks/useConsulta";
-import { useEffect } from "react";
+import useConv from "../../hooks/useConv";
+import useSWR from "swr";
+import clienteAxios from "../../config/axios";
 
 
 
 export default function Convocatorias() {
 
     const {user} = useAuth({middleware:'auth'});
-    const {obtenerConvocatorias, convocatorias} = useConsulta()
+    const {handleDeleteConvocatoria} = useConv()
 
-    useEffect(() => {
-        obtenerConvocatorias()
-    },[])
+    const token = localStorage.getItem('AUTH_TOKEN');
+
+    const fetcher = () => clienteAxios('/api/nueva_convocatoria',{
+        headers:{
+            Authorization: `Bearer ${token}`
+        }
+    }).then(datos => datos.data)
+
+    const {data,error, isLoading} = useSWR('/api/nueva_convocatoria',fetcher, {refreshInterval: 1000})
+
+    if(isLoading) return <p>Cargando...</p>
+    if(error) return <p>Hubo un error</p>
+    
+
+
+    
 
     return (
   
@@ -48,7 +62,7 @@ export default function Convocatorias() {
                     </tr>
                 </thead>
                 <tbody>
-                    {convocatorias.map(convocatoria => (
+                    {data.data.map(convocatoria => (
                         <tr className="odd:bg-white  even:bg-gray-50 border-b dark:border-gray-700" key={convocatoria.id} >
                             
                             <>
@@ -83,9 +97,12 @@ export default function Convocatorias() {
                                             <p>Actualizar</p>
                                         </Link>
 
-                                        <a href="" className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold">
+                                        <button 
+                                            className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold"
+                                            onClick={() => handleDeleteConvocatoria({id: convocatoria.id, numero_of: convocatoria.numero_of})}
+                                        >
                                             <p>Eliminar</p>
-                                        </a>
+                                        </button>
                                     </div>
                                     
                                 </td>

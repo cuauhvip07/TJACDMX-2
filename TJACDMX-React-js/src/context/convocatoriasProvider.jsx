@@ -2,6 +2,8 @@
 import { createContext, useEffect, useState } from 'react';
 import clienteAxios from '../config/axios';
 import { toast } from 'react-toastify';
+import Swal from 'sweetalert2';
+
 
 const ConvocatoriasContext = createContext();
 
@@ -139,6 +141,64 @@ const ConvocatoriasProvider = ({ children }) => {
 
     }
 
+    const handleDeleteConvocatoria = (datos) => {
+
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "bg-green-500 text-white rounded px-4 py-2 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 mx-2",
+                cancelButton: "bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 mx-2"
+            },
+            buttonsStyling: false
+          });
+          swalWithBootstrapButtons.fire({
+            title: `¿Esta seguro de eliminar la convocatoria ${datos.numero_of}?`,
+            text: "Esta acción no sera reversible",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonText: "Eliminar",
+            cancelButtonText: "Cancelar",
+            reverseButtons: true
+          }).then( async (result) => {
+            if (result.isConfirmed) {
+
+
+                try {
+                    const {data} = await clienteAxios.delete(`/api/nueva_convocatoria/${datos.id}`,{
+                        headers:{
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
+
+                    toast.success(data.message,{
+                        droggable:true
+                    })
+        
+                } catch (error) {
+                    console.log(error)
+                }
+
+
+              swalWithBootstrapButtons.fire({
+                title: "Eliminado",
+                text: "La convocatoria ha sido eliminada",
+                icon: "success"
+              });
+            } else if (
+              /* Read more about handling dismissals below */
+              result.dismiss === Swal.DismissReason.cancel
+            ) {
+              swalWithBootstrapButtons.fire({
+                title: "Cancelado",
+                text: "Acción cancelada",
+                icon: "error"
+              });
+            }
+        });
+
+    }
+
 
     useEffect(() => {
         obtenerEstatus()
@@ -159,6 +219,7 @@ const ConvocatoriasProvider = ({ children }) => {
                 handleSubmitNuevoIntegrante,
                 handleSubmitUpdateIntegrante,
                 handleSubmitUpdateConvocatoria,
+                handleDeleteConvocatoria,
             }}
         >
             {children}

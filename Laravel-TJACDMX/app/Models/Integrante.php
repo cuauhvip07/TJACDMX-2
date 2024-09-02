@@ -17,6 +17,7 @@ class Integrante extends Model
         'apellido_materno',
         'fecha_inicio',
         'fecha_fin',
+        'tipo_integrante_id'
 
     ];
 

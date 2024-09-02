@@ -1,6 +1,5 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
-import useSWR from "swr";
 
 
 const ConsultaContext = createContext()
@@ -110,22 +109,6 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
-    const obtenerIntegrantes = async () => {
-        const token = localStorage.getItem('AUTH_TOKEN');
-
-        try {
-            const {data} = await clienteAxios('/api/integrantes',{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-            })
-
-            setIntegrantes(data.data)
-        } catch (error) {
-            console.log(error)
-        }
-    }
-
 
     return (
         <ConsultaContext.Provider
@@ -145,7 +128,6 @@ const ConsultaProvider = ({children}) => {
             obtenerPuntoConvocatoria,
             obtenerTipoVoto,
             obtenerTipoIntegrante,
-            obtenerIntegrantes,
             setConvocatorias
         }}
 

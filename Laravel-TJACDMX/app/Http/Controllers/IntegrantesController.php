@@ -80,6 +80,11 @@ class IntegrantesController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $integrante = Integrante::find($id);
+        $integrante->delete();
+
+        return[
+            'message'=> 'Integrante eliminado correctamente',
+        ];
     }
 }

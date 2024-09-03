@@ -11,9 +11,9 @@ class PuntoConvocatoriaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return new PuntoConvocatoriaCollection(PuntoConvocatoria::all());
+        return new PuntoConvocatoriaCollection(PuntoConvocatoria::where('convocatoria_id', $request->convocatoria_id)->get());
     }
 
     /**

@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import useConv from "../../hooks/useConv";
 import useConsulta from "../../hooks/useConsulta";
 import Label from "../../utilities/Label";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 
@@ -12,7 +12,9 @@ import { useEffect } from "react";
 export default function ConvocatoriaMake() {
 
     const location = useLocation()
-    const {convocatoria} = location.state || {}
+    const navigate = useNavigate()
+
+    const convocatoria = location.state?.convocatoria || {}
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
@@ -25,16 +27,17 @@ export default function ConvocatoriaMake() {
         obtenerTipoPunto()
     },[])
 
-
     const onSubmit = (data) => {
 
         
         handleNuevoPuntoConvocatoria({...data,
             convocatoria_id:convocatoria.id,
         })
-        // toast.success('Convocatoria Creada Correctamente',{
-        //     draggable:true
-        // })
+      
+        setTimeout(() => {
+            navigate(`/convocatorias`)
+        }, 2000);
+
 
 
         reset()

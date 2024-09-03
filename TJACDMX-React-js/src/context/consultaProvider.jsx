@@ -64,16 +64,16 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
-    const obtenerPuntoConvocatoria = async () => {
+    const obtenerPuntoConvocatoria = async (id) => {
         const token = localStorage.getItem('AUTH_TOKEN');
         
         try {
-            const {data} = await clienteAxios('/api/punto_convocatoria',{
+            const {data} = await clienteAxios(`/api/punto_convocatoria?convocatoria_id=${id}`,{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
             })
-            setPuntosConvocatoria(data.data)
+            setPuntosConvocatoria(data.data || [])
         } catch (error) {
             console.log(error)
         }

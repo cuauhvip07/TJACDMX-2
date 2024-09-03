@@ -15,6 +15,7 @@ class PuntoConvocatoriaResource extends JsonResource
     public function toArray(Request $request): array
     {
         return[
+            'id'=>$this->id,
             'numero_orden'=>$this->numero_orden,
             'descripcion'=>$this->descripcion,
             'materia'=>[

@@ -29,6 +29,7 @@ export default function Informacion() {
         <div className="w-5/12">
           <Link 
             to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/votacion`}
+            state={punto.id}
           >
             <div className=" bg-green-500 text-center text-white font-bold uppercase py-2 px-10">
               Votos

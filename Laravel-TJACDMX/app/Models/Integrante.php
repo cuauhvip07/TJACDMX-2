@@ -25,4 +25,9 @@ class Integrante extends Model
     {
         return $this->belongsTo(TipoIntegrante::class,'tipo_integrante_id');
     }
+
+    public function votacion()
+    {
+        return $this->hasMany(Votacion::class);
+    }
 }

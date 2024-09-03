@@ -1,8 +1,6 @@
 
 import { Link } from "react-router-dom"
 import { formatearFecha } from "../../helpers/formatearFecha"
-import clienteAxios from "../../config/axios";
-import useSWR from "swr";
 import useConv from "../../hooks/useConv";
 import useConsulta from "../../hooks/useConsulta";
 

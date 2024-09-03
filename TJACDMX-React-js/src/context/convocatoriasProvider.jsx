@@ -257,6 +257,26 @@ const ConvocatoriasProvider = ({ children }) => {
 
     }
 
+    const handleSubmitVotacion = async (datos) => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+
+        try {
+            const {data} = await clienteAxios.post('/api/votacion',datos,{
+                headers:{
+                    Authorization: `Bearer ${token}`
+                }
+            })
+
+            toast.success(data.message,{
+                droggable:true
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
     useEffect(() => {
         obtenerEstatus()
@@ -279,6 +299,7 @@ const ConvocatoriasProvider = ({ children }) => {
                 handleSubmitUpdateConvocatoria,
                 handleDeleteConvocatoria,
                 handleDeleteIntegrate,
+                handleSubmitVotacion,
             }}
         >
             {children}

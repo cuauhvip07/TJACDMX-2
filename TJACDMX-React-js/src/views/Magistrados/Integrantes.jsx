@@ -4,28 +4,19 @@ import { formatearFecha } from "../../helpers/formatearFecha"
 import clienteAxios from "../../config/axios";
 import useSWR from "swr";
 import useConv from "../../hooks/useConv";
+import useConsulta from "../../hooks/useConsulta";
 
 export default function Integrantes() {
 
-
     const {handleDeleteIntegrate} = useConv()
-    
-    const token = localStorage.getItem('AUTH_TOKEN');
+    const {obtenerIntegrantes} = useConsulta()
 
-    
-    const fetcher = () => clienteAxios('/api/integrantes',{
-        headers:{
-            Authorization: `Bearer ${token}`
-        }
-    }).then(datos => datos.data)
+    const {data, error, isLoading} = obtenerIntegrantes()
 
-    const {data,error, isLoading} = useSWR('/api/integrantes',fetcher, {refreshInterval: 1000})
 
     if(isLoading) return <p>Cargando...</p>
     if(error) return <p>Hubo un error</p>
 
-        
-    
 
 
   return (
@@ -94,7 +85,7 @@ export default function Integrantes() {
                                     >
                                         <p>Actualizar</p>
                                     </Link>
-                                    <button  
+                                    <button
                                         className="bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold"
                                         onClick={() => handleDeleteIntegrate(integrante)}
                                     >

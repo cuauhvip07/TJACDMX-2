@@ -1,5 +1,6 @@
 import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
+import useSWR from "swr";
 
 
 const ConsultaContext = createContext()
@@ -7,13 +8,11 @@ const ConsultaContext = createContext()
 const ConsultaProvider = ({children}) => {
 
     const [tipoConvocatoria, setTipoConvocatoria] = useState([])
-    const [convocatorias,setConvocatorias] = useState([])
     const [materias, setMaterias] = useState([])
     const [tipoPuntos, setTipoPuntos] = useState([])
     const [puntosConvocatoria, setPuntosConvocatoria] = useState([])
     const [tipoVotos, setTipoVotos] = useState([])
     const [tipoIntegrantes, setTipoIntegrantes] = useState([])
-    const [integrantes, setIntegrantes] = useState([])
 
     const obtenerTipoConvocatorias = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
@@ -109,26 +108,39 @@ const ConsultaProvider = ({children}) => {
         }
     }
 
+    const obtenerIntegrantes = () => {
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+    
+        const fetcher = () => clienteAxios('/api/integrantes',{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(datos => datos.data)
+
+        const {data,error, isLoading} = useSWR('/api/integrantes',fetcher, {refreshInterval: 1000})
+        
+        return {data,error,isLoading}
+    }
+
 
     return (
         <ConsultaContext.Provider
         value={{
 
             tipoConvocatoria,
-            convocatorias,
             materias,
             tipoPuntos,
             puntosConvocatoria,
             tipoVotos,
             tipoIntegrantes,
-            integrantes,
             obtenerTipoConvocatorias,
             obtenerMateria,
             obtenerTipoPunto,
             obtenerPuntoConvocatoria,
             obtenerTipoVoto,
             obtenerTipoIntegrante,
-            setConvocatorias
+            obtenerIntegrantes
         }}
 
         >{children}</ConsultaContext.Provider>

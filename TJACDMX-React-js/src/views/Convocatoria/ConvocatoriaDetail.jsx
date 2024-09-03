@@ -24,26 +24,8 @@ export default function ConvocatoriaDetail() {
   return (
     <>
         <h1 className=" text-center text-xl font-bold mt-5">Número de Orden del día: {numero_orden_dia}</h1>
-        <div className=" grid grid-cols-1 md:grid-cols-[3fr_9fr] mt-5 mx-auto container">
-        
-            <aside className="flex justify-center mb-5 md:mb-0">
-                <form 
-                    onSubmit={handleSubmit(onSubmit)}
-
-                >
-                    <div className="">
-                        <h2 className=" font-bold">Votaciones.</h2>
-                        <div className=" space-y-2 mt-3">
-                            <p>Juan: A favor</p>
-                            <p>Carlos: En contra</p>
-                            <p>Juan: Abstinencia</p>
-                            <p>Juan: Inasistencia</p>
-                        </div>
-                    </div>
-                </form>
-            </aside>
-
-            <div className=" shadow-lg p-4 md:w-10/12 ">
+        <div className="mt-5 mx-auto container">
+            <div className=" shadow-lg p-4  ">
                 <div className=" space-y-10">
                 <>
                     <p className=" font-bold">Numero de orden: <span className=" font-normal">{numero_orden}</span></p>

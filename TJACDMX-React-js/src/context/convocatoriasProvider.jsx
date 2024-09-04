@@ -257,24 +257,42 @@ const ConvocatoriasProvider = ({ children }) => {
 
     }
 
-    const handleSubmitVotacion = async (datos) => {
+    const handleSubmitVotacion = async (datos,voto_id) => {
         const token = localStorage.getItem('AUTH_TOKEN');
+        const nuevoDatos = {...datos, voto_id}
 
 
-        try {
-            const {data} = await clienteAxios.post('/api/votacion',datos,{
-                headers:{
-                    Authorization: `Bearer ${token}`
-                }
-            })
+       if(voto_id === null){
+            try {
+                const {data} = await clienteAxios.post('/api/votacion',nuevoDatos,{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                })
 
-            toast.success(data.message,{
-                droggable:true
-            })
+                toast.success(data.message,{
+                    droggable:true
+                })
 
-        } catch (error) {
-            console.log(error)
-        }
+            } catch (error) {
+                console.log(error)
+            }
+       } else{
+            try {
+                const {data} = await clienteAxios.post(`/api/votacion?id=${voto_id}`,nuevoDatos,{
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                })
+
+                toast.success(data.message,{
+                    droggable:true
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+       }
     }
 
 

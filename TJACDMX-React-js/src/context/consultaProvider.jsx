@@ -13,7 +13,6 @@ const ConsultaProvider = ({children}) => {
     const [puntosConvocatoria, setPuntosConvocatoria] = useState([])
     const [tipoVotos, setTipoVotos] = useState([])
     const [tipoIntegrantes, setTipoIntegrantes] = useState([])
-    const [votos, setVotos] = useState([])
 
     const obtenerTipoConvocatorias = async () => {
         const token = localStorage.getItem('AUTH_TOKEN')
@@ -127,16 +126,20 @@ const ConsultaProvider = ({children}) => {
         
     }
 
-    const obtenerVotos = async (id) => {
+    const obtenerVotos =  (id) => {
         const token = localStorage.getItem('AUTH_TOKEN');
         
         try {
-            const {data} = await clienteAxios(`/api/votacion?punto_convocatoria_id=${id}`,{
+            const  fetcher = () =>  clienteAxios(`/api/votacion?punto_convocatoria_id=${id}`,{
                 headers:{
                     Authorization: `Bearer ${token}`
                 }
-            })
-            setVotos(data.data)
+            }).then(datos => datos.data)
+            
+            const {data,error,isLoading} = useSWR(`/api/votacion?punto_convocatoria_id=${id}`,fetcher,{refreshInterval: 1000})
+
+            return {data,error,isLoading}
+
         } catch (error) {
             console.log(error)
         }
@@ -162,7 +165,6 @@ const ConsultaProvider = ({children}) => {
             obtenerTipoIntegrante,
             obtenerIntegrantes,
             obtenerVotos,
-            votos
         }}
 
         >{children}</ConsultaContext.Provider>

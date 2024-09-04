@@ -39,16 +39,19 @@ class VotacionController extends Controller
      */
     public function store(Request $request)
     {
+        // Si $request->voto_id es null, creamos un nuevo voto; de lo contrario, lo actualizamos
+        $voto = $request->voto_id ? Votacion::find($request->voto_id) : new Votacion;
 
-        $voto = new Votacion;
+        // Asignamos los valores al voto, independientemente de si es nuevo o existente
         $voto->punto_convocatoria_id = $request->punto_convocatoria_id;
         $voto->integrante_id = $request->integrante_id;
         $voto->tipo_voto_id = $request->tipo_voto_id;
         $voto->save();
 
-        return [
-            'message'=>'Voto guardado correctamente'
-        ];
+        // Determinamos el mensaje basado en si el voto es nuevo o actualizado
+        $message = $request->voto_id ? 'Voto actualizado correctamente' : 'Voto guardado correctamente';
+
+        return ['message' => $message];
     }
 
     /**
@@ -72,8 +75,6 @@ class VotacionController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $voto = Votacion::find($id);
-        $voto->update($request->all());
     }
 
     /**

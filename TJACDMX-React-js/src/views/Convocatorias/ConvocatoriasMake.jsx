@@ -18,6 +18,10 @@ export default function ConvocatoriasMake() {
     const navigate = useNavigate()
     const location = useLocation()
 
+    const {register, handleSubmit, formState: {errors}, reset} = useForm()
+    useAuth({middleware:'admin'})
+    
+
     const convocatoria = location.state?.convocatoria || false ;
 
     useEffect(() => {
@@ -36,26 +40,31 @@ export default function ConvocatoriasMake() {
         }
     },[])
 
-    const {register, handleSubmit, formState: {errors}, reset} = useForm()
-    useAuth({middleware:'admin'})
-    
-    
-    // console.log(convocatoria)
-
 
     const onSubmit = async (data) => {
+
+        const formData = new FormData()
+
+        formData.append('numero_conv',data.numero_conv)
+        formData.append('numero_of',data.numero_of)
+        formData.append('fecha',data.fecha)
+        formData.append('hora_inicio_real',data.hora_inicio_real)
+        formData.append('hora_fin_real',data.hora_fin_real)
+        formData.append('estatus_id',data.estatus_id)
+        formData.append('tipo_convocatoria_id',data.tipo_convocatoria_id)
+        formData.append('archivo',data.archivo[0])
 
         try {
 
             if(convocatoria){
-                await handleSubmitUpdateConvocatoria(data);
+                await handleSubmitUpdateConvocatoria(formData);
                 setTimeout(() => {
                     navigate('/convocatorias')
                 }, 2000);
                 return
             }
 
-            await handleSubmitNuevaConvocatoria(data)
+            await handleSubmitNuevaConvocatoria(formData)
             setTimeout(() => {
                 navigate(`/convocatorias`)
             }, 2000);
@@ -101,7 +110,29 @@ export default function ConvocatoriasMake() {
                             {errors.numero_conv && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.numero_conv.message}</p>}
 
                         </div>
-                                    {/* Falta validar la nomenclatura del oficio */}
+                                
+                        
+                        <div>
+                            <Label
+                                htmlfor='archivo'
+                            >
+                                Archivo: 
+                            </Label>
+
+                            <input
+                                type='file'
+                                id='archivo'
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.archivo ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("archivo",{
+                                    required: "El archivo es obligatorio"
+                                })}
+                                accept=".pdf"
+                            />
+
+                            {errors.archivo && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.archivo.message}</p>}
+
+                        </div>
+
                         <div>
                             <Label
                                 htmlfor='numero_of'
@@ -114,7 +145,7 @@ export default function ConvocatoriasMake() {
                                 id='numero_of'
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.numero_of ? ' bg-red-100' : 'bg-gray-100'}`}
                                 {...register("numero_of",{
-                                    required: "Todos los campos son obligatorios"
+                                    required: "El numero de oficio es obligatorio"
                                 })}
                             />
 

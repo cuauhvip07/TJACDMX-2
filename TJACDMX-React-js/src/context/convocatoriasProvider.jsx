@@ -17,24 +17,27 @@ const ConvocatoriasProvider = ({ children }) => {
         setModal(!modal);
     };
 
-    const handleSubmitNuevaConvocatoria = async (datos) => {
+
+    const handleSubmitNuevaConvocatoria = async (formData) => {
         const token = localStorage.getItem('AUTH_TOKEN');
         
         try {
-            const {data} = await clienteAxios.post('/api/nueva_convocatoria', datos,{
-                headers:{
+            // Enviar la solicitud POST con FormData
+            const { data } = await clienteAxios.post('/api/nueva_convocatoria', formData, {
+                headers: {
                     Authorization: `Bearer ${token}`
                 }
-            })
+            });
 
-           toast.success(data.message,{
-            draggable:true
-           })
-
+            toast.success(data.message, {
+                draggable: true
+            });
+            
         } catch (error) {
-            console.log(error);
+            console.error( error);
         }
-    }
+    };
+
 
     const handleNuevoPuntoConvocatoria = async (datos) => {
         const token = localStorage.getItem('AUTH_TOKEN');

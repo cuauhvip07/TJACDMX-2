@@ -30,12 +30,18 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
 
-
         $convocatoria = new Convocatoria;
+
+        if ($request->hasFile('archivo')) {
+            $file = $request->file('archivo');
+            $path = $file->store('uploads', 'public');
+            $ruta = $path;
+        }
+        
         $convocatoria->numero_conv = $request->numero_conv;
         $convocatoria->numero_of = $request->numero_of;
         $convocatoria->fecha = $request->fecha;
-        $convocatoria->archivo = 'sdflkdssd.jpg';
+        $convocatoria->archivo = $ruta;
         $convocatoria->hora_inicio_real = $request->hora_inicio_real;
         $convocatoria->hora_fin_real = $request->hora_fin_real;
         $convocatoria->estatus_id = $request->estatus_id;

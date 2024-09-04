@@ -16,6 +16,7 @@ import { lazy, Suspense } from "react";
 import Votacion from "./views/Magistrados/Votacion";
 import Integrantes from "./views/Magistrados/Integrantes";
 import AddIntegrante from "./views/Magistrados/AddIntegrante";
+import ConvocatoriasDetails from "./views/Convocatorias/ConvocatoriasDetails";
 
 const Informacion = lazy(() => import('./views/Informacion'))
 
@@ -73,6 +74,10 @@ const router = createBrowserRouter([
             {
                 path:'/convocatorias/:numero_of',
                 element: <Convocatoria/>
+            },
+            {
+                path:'/convocatorias/:numero_of/informacion',
+                element: <ConvocatoriasDetails/>
             },
             {
                 path: '/convocatorias/:numero_of/crear',

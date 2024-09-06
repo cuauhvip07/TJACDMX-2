@@ -146,6 +146,23 @@ const ConsultaProvider = ({children}) => {
 
     }
 
+    const obtenerConvocatoria = () => {
+
+        const token = localStorage.getItem('AUTH_TOKEN');
+
+        const fetcher = () => clienteAxios('/api/nueva_convocatoria',{
+            headers:{
+                Authorization: `Bearer ${token}`
+            }
+        }).then(datos => datos.data)
+
+        const {data,error, isLoading} = useSWR('/api/nueva_convocatoria',fetcher, {refreshInterval: 1000})
+
+        return {data,error,isLoading}
+    
+
+    }
+
 
     return (
         <ConsultaContext.Provider
@@ -165,6 +182,7 @@ const ConsultaProvider = ({children}) => {
             obtenerTipoIntegrante,
             obtenerIntegrantes,
             obtenerVotos,
+            obtenerConvocatoria,
         }}
 
         >{children}</ConsultaContext.Provider>

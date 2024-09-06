@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import useConv from "../../hooks/useConv";
 import useSWR from "swr";
 import clienteAxios from "../../config/axios";
+import useConsulta from "../../hooks/useConsulta";
 
 
 
@@ -10,22 +11,13 @@ export default function Convocatorias() {
 
     const {user} = useAuth({middleware:'auth'});
     const {handleDeleteConvocatoria} = useConv()
+    const {obtenerConvocatoria} = useConsulta()
 
-    const token = localStorage.getItem('AUTH_TOKEN');
+    const {data,error,isLoading} = obtenerConvocatoria()
 
-    const fetcher = () => clienteAxios('/api/nueva_convocatoria',{
-        headers:{
-            Authorization: `Bearer ${token}`
-        }
-    }).then(datos => datos.data)
-
-    const {data,error, isLoading} = useSWR('/api/nueva_convocatoria',fetcher, {refreshInterval: 1000})
-
-    if(isLoading) return <p>Cargando...</p>
-    if(error) return <p>Hubo un error</p>
+    if (isLoading) return <p>Cargando...</p>
+    if (error) return <p>Hubo un error</p>
     
-
-
     
 
     return (

@@ -17,10 +17,6 @@ export default function ConvocatoriaDetail() {
     const {numero_orden,descripcion,comentarios,tipo_punto:{tipo_punto},materia:{materia},numero_orden_dia} = puntoConvocatoria
 
 
-    const onSubmit = () => {
-        console.log('submit')
-    }
-
   return (
     <>
         <h1 className=" text-center text-xl font-bold mt-5">Número de Orden del día: {numero_orden_dia}</h1>

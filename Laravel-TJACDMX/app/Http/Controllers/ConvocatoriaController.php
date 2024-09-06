@@ -12,9 +12,24 @@ class ConvocatoriaController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        return new ConvocatoriaCollection(Convocatoria::with('tipoConvocatoria')->with('estatus')->orderBy('numero_conv','ASC')->get());
-    }
+{
+    $convocatorias = Convocatoria::with('tipoConvocatoria')
+                                  ->with('estatus')
+                                  ->orderBy('numero_conv', 'ASC')
+                                  ->get()
+                                  ->map(function ($convocatoria) {
+                                      // Construye la URL completa para el archivo
+                                      $convocatoria->archivo_url = url('storage/uploads/' . $convocatoria->archivo);
+                                      return $convocatoria;
+                                  });
+
+    return new ConvocatoriaCollection($convocatorias);
+
+    return [
+        'message' => $convocatoria
+    ];
+}
+
 
     /**
      * Show the form for creating a new resource.

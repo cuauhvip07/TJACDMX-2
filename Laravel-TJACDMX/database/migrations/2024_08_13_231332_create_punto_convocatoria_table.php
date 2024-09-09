@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('comentarios');
             $table->foreignId('materia_id')->constrained('materias','id')->onDelete('cascade');
             $table->foreignId('tipo_punto_id')->constrained('tipo_punto','id')->onDelete('cascade');
+            $table->string('archivos');
             $table->timestamps();
         });
     }

@@ -30,9 +30,24 @@ export default function ConvocatoriaMake() {
     const onSubmit = (data) => {
 
         
-        handleNuevoPuntoConvocatoria({...data,
-            convocatoria_id:convocatoria.id,
+        // handleNuevoPuntoConvocatoria({...data,
+        //     convocatoria_id:convocatoria.id,
+        // })
+
+        const formData =  new FormData()
+        formData.append('numero_orden',data.numero_orden)
+        formData.append('fundamento_legal',data.fundamento_legal[0]);
+        formData.append('num_orden',data.num_orden);
+        formData.append('materia_id',data.materia);
+        formData.append('tipo_punto_id',data.tipo_punto);
+        formData.append('descripcion',data.descripcion);
+        formData.append('comentarios',data.comentarios);
+
+        formData.forEach((value,key) => {
+            console.log(key,value)
         })
+
+
       
         setTimeout(() => {
             navigate(`/convocatorias`)

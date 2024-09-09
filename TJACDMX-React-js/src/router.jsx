@@ -84,6 +84,10 @@ const router = createBrowserRouter([
                 element: <ConvocatoriaMake/>
             },
             {
+                path: 'convocatorias/:numero_of/:numero_orden/actualizar',
+                element: <ConvocatoriaMake/>
+            },
+            {
                 path:'/convocatorias/:numero_of/:numero_orden/menu',
                 element: <Suspense fallback="Cargando...">
                     <Informacion/>

@@ -83,12 +83,31 @@ export default function Convocatoria() {
                                     {punto.tipo_punto.tipo_punto}
                                 </td>
                                 <td className="px-6 py-4">
-                                    <Link 
-                                        to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/menu`}
-                                        state={{punto,convocatoria}}
-                                    >
-                                        Ver
-                                    </Link>
+                                    <div className=" flex flex-col gap-3">
+                                        <Link
+                                            className=" bg-green-500 hover:bg-green-400 text-center rounded-full text-black p-1 inline-block font-bold"
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero}/menu`}
+                                            state={{ punto,convocatoria }} 
+                                        >
+                                            Ver Información
+                                        </Link>
+
+                                        <Link 
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero}/actualizar`}
+                                            className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
+                                            // state={{ convocatoria }}
+                                        >
+                                            <p>Actualizar</p>
+                                        </Link>
+
+                                        <Link
+                                            className=" bg-red-500 hover:bg-red-400 text-center rounded-full text-white p-1 inline-block font-bold"
+                                            to={`/convocatorias/${convocatoria.numero_of}`}
+                                            state={{ convocatoria }} 
+                                        >
+                                            Eliminar
+                                        </Link>
+                                    </div>
                                 </td>
                             </>
                         

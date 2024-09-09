@@ -77,25 +77,28 @@ export default function ConvocatoriaMake() {
 
                         </div>
 
-                        {/* <div>    Fudamento legal que es un archivo
+                        <div>
                             <Label
                                 htmlfor='fundamento_legal'
                             >
-                                Fundamento Legal: 
+                                Archivo del Fundamento Legal: 
                             </Label>
 
                             <input
-                                type='text'
-                                id='fundamento_legal'
+                                type='file'
+                                id="fundamento_legal"
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.fundamento_legal ? ' bg-red-100' : 'bg-gray-100'}`}
                                 {...register("fundamento_legal",{
-                                    required: "Todos los campos son obligatorios"
+                                    required:"El archivo es obligatorio"
                                 })}
+                                accept=".pdf"
                             />
 
                             {errors.fundamento_legal && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fundamento_legal.message}</p>}
 
-                        </div> */}
+                        </div>
+
+                       
 
                         <div>
                             <Label

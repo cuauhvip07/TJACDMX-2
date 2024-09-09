@@ -22,8 +22,8 @@ export default function ConvocatoriasDetails() {
             <h1 className="text-center text-xl font-bold mt-5">Numero de oficio: {convocatoria.numero_of}</h1>
             <div className="mt-5 mx-auto container">
                 <div className="shadow-lg p-4 h-auto">
-                    <div className="flex  justify-between h-auto ">
-                        <div className=' space-y-10  w-7/12'>
+                    <div className="flex flex-col h-auto ">
+                        <div className=' flex justify-between  w-full gap-2'>
                             <p className="font-bold">Numero de Convocatoria: <span className="font-normal">{convocatoria.numero_conv}</span></p>
                             <p className="font-bold">Fecha: <span className="font-normal">{formatearFecha(convocatoria.fecha)}</span></p>
                             <p className="font-bold">Hora de inicio real: <span className="font-normal">{convocatoria.hora_inicio_real}</span></p>
@@ -32,7 +32,7 @@ export default function ConvocatoriasDetails() {
                             <p className="font-bold">Estatus: <span className="font-normal">{convocatoria.estatus.estatus}</span></p>
                         </div>
 
-                        <div className=' flex items-center w-2/12 h-auto'>
+                        <div className=' flex justify-center w-full mt-5'>
                             <button 
                                 className=' bg-red-500 p-2 rounded-lg text-white font-semibold  transition-colors hover:bg-red-400 '
                                 onClick={() => onHandleClickMostrar()}

@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import Label from "../../utilities/Label";
-import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import useConv from "../../hooks/useConv";
 import { useAuth } from "../../hooks/useAuth";
@@ -57,7 +56,8 @@ export default function ConvocatoriasMake() {
         try {
 
             if(convocatoria){
-                await handleSubmitUpdateConvocatoria(formData);
+                formData.append('id',convocatoria.id)
+                await handleSubmitUpdateConvocatoria(formData,convocatoria.id);
                 setTimeout(() => {
                     navigate('/convocatorias')
                 }, 2000);
@@ -73,9 +73,6 @@ export default function ConvocatoriasMake() {
             console.log(error)
         }
 
-        toast.success('Convocatoria Creada Correctamente',{
-            draggable:true
-        })
         reset()
     }
 
@@ -172,29 +169,6 @@ export default function ConvocatoriasMake() {
                             {errors.fecha && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fecha.message}</p>}
 
                         </div>
-
-                        {/* <div>
-                            <Label
-                                htmlfor='archivo'
-                            >
-                                Archivo del Oficio: 
-                            </Label>
-
-                            <input
-                                type='file'
-                                accept=".pdf"
-                                id="archivo"
-                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.archivo ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("archivo",{
-                                    required: 'Este campo es obligatorio',
-                                })}
-                                onChange={handleFileChange}
-                            />
-
-                            {errors.archivo && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.archivo.message}</p>}
-
-                        </div> */}
-
                     </div>
 
                     <div className="space-y-5 md:space-y-10">
@@ -290,7 +264,7 @@ export default function ConvocatoriasMake() {
                     <input 
                         type="submit" 
                         className=" bg-orange-400 w-full md:w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
-                        value="Crear"
+                        value={convocatoria && 'Actualizar Convocatoria' || 'Crear Convocatoria'}
                     />
                 </div>
                 

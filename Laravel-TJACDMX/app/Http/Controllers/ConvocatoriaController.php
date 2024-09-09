@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\ConvocatoriaCollection;
 use App\Models\Convocatoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ConvocatoriaController extends Controller
 {
@@ -45,18 +46,36 @@ class ConvocatoriaController extends Controller
     public function store(Request $request)
     {
 
-        $convocatoria = new Convocatoria;
+        if($request->id) {
+            $convocatoria = Convocatoria::find($request->id);
 
-        if ($request->hasFile('archivo')) {
-            $file = $request->file('archivo');
-            $path = $file->store('uploads', 'public');
-            $ruta = $path;
-        }
+            if ($request->hasFile('archivo')) {
+                // Verificar si hay un archivo existente y eliminarlo
+                if ($convocatoria->archivo && Storage::disk('public')->exists($convocatoria->archivo)) {
+                    Storage::disk('public')->delete($convocatoria->archivo);
+                }
         
+                // Subir el nuevo archivo y actualizar la ruta
+                $path = $request->file('archivo')->store('uploads', 'public');
+                $convocatoria->archivo = $path;
+            }
+        
+            // Actualizar el resto de la información
+            $convocatoria->update($request->except('archivo'));
+
+        } else{
+            $convocatoria = new Convocatoria;
+            if ($request->hasFile('archivo')) {
+                $file = $request->file('archivo');
+                $path = $file->store('uploads', 'public');
+                $ruta = $path;
+                $convocatoria->archivo = $ruta;
+            }
+        }
+
         $convocatoria->numero_conv = $request->numero_conv;
         $convocatoria->numero_of = $request->numero_of;
         $convocatoria->fecha = $request->fecha;
-        $convocatoria->archivo = $ruta;
         $convocatoria->hora_inicio_real = $request->hora_inicio_real;
         $convocatoria->hora_fin_real = $request->hora_fin_real;
         $convocatoria->estatus_id = $request->estatus_id;
@@ -68,6 +87,7 @@ class ConvocatoriaController extends Controller
         return [
             'message' => 'Datos guardados exitosamente'
         ];
+
     }
 
     /**
@@ -91,13 +111,8 @@ class ConvocatoriaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $convocatoria = Convocatoria::find($id);
-        $convocatoria->update($request->all());
 
-        return [
-            'message' => 'Convocatoria actualizada correctamente'
-        ];
-    }
+    }   
 
     /**
      * Remove the specified resource from storage.
@@ -106,6 +121,9 @@ class ConvocatoriaController extends Controller
     {
 
         $convocatoria = Convocatoria::find($id);
+        if($convocatoria->archivo && Storage::disk('public')->exists($convocatoria->archivo)) {
+            Storage::disk('public')->delete($convocatoria->archivo);
+        }
         $convocatoria->delete();
 
         return [

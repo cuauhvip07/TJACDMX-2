@@ -1,12 +1,7 @@
-import { useForm } from "react-hook-form"
 import { useLocation } from "react-router-dom"
-import useConsulta from "../../hooks/useConsulta"
-import { useEffect } from "react"
 
 
 export default function ConvocatoriaDetail() {
-
-    const {register,handleSubmit, formState:{errors}, reset} = useForm()
 
     const location = useLocation()
 

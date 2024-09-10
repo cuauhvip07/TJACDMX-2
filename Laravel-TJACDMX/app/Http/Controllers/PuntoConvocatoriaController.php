@@ -13,7 +13,14 @@ class PuntoConvocatoriaController extends Controller
      */
     public function index(Request $request)
     {
-        return new PuntoConvocatoriaCollection(PuntoConvocatoria::where('convocatoria_id', $request->convocatoria_id)->get());
+        return new PuntoConvocatoriaCollection(PuntoConvocatoria::where('convocatoria_id', $request->convocatoria_id)
+        ->get()
+        // ->map(function ($punto){
+        //     if($punto->archivos){
+        //         $punto->archivo_url = url('storage/'.$punto->archivos);
+        //     }
+        // })
+        );
     }
 
     /**

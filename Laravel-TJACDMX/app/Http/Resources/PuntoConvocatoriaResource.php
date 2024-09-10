@@ -25,7 +25,10 @@ class PuntoConvocatoriaResource extends JsonResource
             'tipo_punto'=>[
                 'tipo_punto'=>$this->tipo_punto->nombre
             ],
-            'numero_orden_dia'=>$this->numero_orden_dia
+            'numero_orden_dia'=>$this->numero_orden_dia,
+            'archivo_urls' => $this->archivos ? collect(json_decode($this->archivos))->map(function($archivo) {
+                return url('storage/' . $archivo);
+                }) : [],
         ];
     }
 }

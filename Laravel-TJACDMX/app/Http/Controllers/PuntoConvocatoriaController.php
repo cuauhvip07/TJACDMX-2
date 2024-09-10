@@ -31,16 +31,28 @@ class PuntoConvocatoriaController extends Controller
     {
 
         $punto_convocatoria = new PuntoConvocatoria;
-        $punto_convocatoria->convocatoria_id = $request->convocatoria_id;
-        $punto_convocatoria->materia_id = $request->materia;
         $punto_convocatoria->numero_orden = $request->numero_orden;
         $punto_convocatoria->numero_orden_dia = $request->num_orden;
         $punto_convocatoria->descripcion = $request->descripcion;
         $punto_convocatoria->comentarios = $request->comentarios;
-        $punto_convocatoria->tipo_punto_id = $request->tipo_punto;
+        $punto_convocatoria->materia_id = $request->materia_id;
+        $punto_convocatoria->tipo_punto_id = $request->tipo_punto_id;
+        $punto_convocatoria->convocatoria_id = $request->convocatoria_id;
+
+
+        if($request->hasFile('archivos')) {
+            $file_paths = [];
+
+            foreach($request->file('archivos') as $file){
+                $path = $file->store('uploads','public');
+                $file_paths[] = $path;
+            }
+
+            
+            $punto_convocatoria->archivos = json_encode($file_paths);
+        }
+
         $punto_convocatoria->save();
-
-
         
         return[
             "message" => 'Campos guardados correctamente'

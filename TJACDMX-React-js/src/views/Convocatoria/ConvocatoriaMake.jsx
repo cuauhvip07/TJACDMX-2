@@ -29,23 +29,24 @@ export default function ConvocatoriaMake() {
 
     const onSubmit = (data) => {
 
-        
-        // handleNuevoPuntoConvocatoria({...data,
-        //     convocatoria_id:convocatoria.id,
-        // })
-
         const formData =  new FormData()
+
+        for(let i = 0 ; i < data.fundamento_legal.length; i++){
+            formData.append('archivos[]',data.fundamento_legal[i])
+        }
+
+        
         formData.append('numero_orden',data.numero_orden)
-        formData.append('fundamento_legal',data.fundamento_legal[0]);
         formData.append('num_orden',data.num_orden);
         formData.append('materia_id',data.materia);
         formData.append('tipo_punto_id',data.tipo_punto);
         formData.append('descripcion',data.descripcion);
         formData.append('comentarios',data.comentarios);
+        formData.append('convocatoria_id',convocatoria.id)
 
-        formData.forEach((value,key) => {
-            console.log(key,value)
-        })
+        handleNuevoPuntoConvocatoria(formData)
+
+
 
 
       
@@ -107,6 +108,7 @@ export default function ConvocatoriaMake() {
                                     required:"El archivo es obligatorio"
                                 })}
                                 accept=".pdf"
+                                multiple
                             />
 
                             {errors.fundamento_legal && <p className=" bg-red-300 border-l-4 border-red-600 text-center uppercase  rounded text-sm mt-2">{errors.fundamento_legal.message}</p>}

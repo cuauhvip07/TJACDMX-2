@@ -15,6 +15,9 @@ export default function ConvocatoriaMake() {
     const navigate = useNavigate()
 
     const convocatoria = location.state?.convocatoria || {}
+    const puntoConvocatoria = location.state?.punto || false
+
+    console.log(puntoConvocatoria)
 
     const {register, handleSubmit, formState: {errors}, reset} = useForm()
     useAuth({middleware:'admin'})
@@ -25,7 +28,21 @@ export default function ConvocatoriaMake() {
     useEffect(() => {
         obtenerMateria()
         obtenerTipoPunto()
+
+        if(puntoConvocatoria){
+            reset({
+                numero_orden: puntoConvocatoria.numero_orden,
+                num_orden: puntoConvocatoria.numero_orden_dia,
+                materia: puntoConvocatoria.materia_id,
+                tipo_punto: puntoConvocatoria.tipo_punto_id,
+                descripcion: puntoConvocatoria.descripcion,
+                comentarios: puntoConvocatoria.comentarios
+            })
+        }
+            
     },[])
+
+    
 
     const onSubmit = (data) => {
 
@@ -99,6 +116,10 @@ export default function ConvocatoriaMake() {
                             >
                                 Archivo del Fundamento Legal: 
                             </Label>
+                            
+                            {puntoConvocatoria && (
+                                <label htmlFor='fundamento_legal' className='text-sm text-gray-400'>*Suba todos los archivos, los anteriores se eliminaran</label>
+                            )}
 
                             <input
                                 type='file'
@@ -253,7 +274,7 @@ export default function ConvocatoriaMake() {
                     <input 
                         type="submit" 
                         className=" bg-orange-400 w-full md:w-8/12 rounded-lg py-1 cursor-pointer hover:bg-orange-500"
-                        value="Crear"
+                        value={puntoConvocatoria ? 'Actualizar' : 'Crear'}
                     />
                 </div>
                 

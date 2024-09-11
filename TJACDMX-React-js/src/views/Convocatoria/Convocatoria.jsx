@@ -21,7 +21,7 @@ export default function Convocatoria() {
 
     const navigate = useNavigate()
 
-    console.log(convocatoria)
+    console.log(puntosConvocatoria)
 
 
     useAuth({middleware: 'auth'});
@@ -62,6 +62,9 @@ export default function Convocatoria() {
                                 Tipo de Punto
                             </th>
                             <th scope="col" className="px-6 py-3">
+                                Descripcion
+                            </th>
+                            <th scope="col" className="px-6 py-3">
                                 Acción
                             </th>
                            
@@ -70,9 +73,9 @@ export default function Convocatoria() {
                     <tbody>
                         
                         {puntosConvocatoria.map( punto => (
-                            <tr className="odd:bg-white even:bg-gray-50 border-b " key={punto.numero_orden}>
+                            <tr className="odd:bg-white even:bg-gray-50 border-b " key={punto.id}>
                             
-                            <>
+                            
                                 
                                 <td className="px-6 py-4">
                                     {punto.numero_orden}
@@ -84,22 +87,25 @@ export default function Convocatoria() {
                                     {punto.tipo_punto.tipo_punto}
                                 </td>
                                 <td className="px-6 py-4">
+                                    {punto.descripcion}
+                                </td>
+                                <td className="px-6 py-4">
                                     <div className=" flex flex-col gap-3">
                                         <Link
                                             className=" bg-green-500 hover:bg-green-400 text-center rounded-full text-black p-1 inline-block font-bold"
-                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero}/menu`}
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/menu`}
                                             state={{ punto,convocatoria }} 
                                         >
                                             Ver Información
                                         </Link>
 
-                                        {/* <Link 
-                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero}/actualizar`}
+                                        <Link 
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/actualizar`}
                                             className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
-                                            // state={{ convocatoria }}
+                                            state={{ punto,convocatoria }}
                                         >
                                             <p>Actualizar</p>
-                                        </Link> */}
+                                        </Link>
 
                                         <Link
                                             className=" bg-red-500 hover:bg-red-400 text-center rounded-full text-white p-1 inline-block font-bold"
@@ -110,7 +116,7 @@ export default function Convocatoria() {
                                         </Link>
                                     </div>
                                 </td>
-                            </>
+                            
                         
                         </tr>
                         ))}

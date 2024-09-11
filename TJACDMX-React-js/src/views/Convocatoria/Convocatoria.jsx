@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useConsulta from "../../hooks/useConsulta";
+import useConv from "../../hooks/useConv";
 
 
 
@@ -12,6 +13,7 @@ export default function Convocatoria() {
 
 
     const {puntosConvocatoria,obtenerPuntoConvocatoria} = useConsulta()
+    const {handleDeletePuntoConvocatoria} = useConv()
 
     useEffect(() => {
         obtenerPuntoConvocatoria(convocatoria.id)
@@ -19,11 +21,10 @@ export default function Convocatoria() {
 
     const navigate = useNavigate()
 
+    console.log(convocatoria)
+
 
     useAuth({middleware: 'auth'});
-    
-    
-
     
     
     useEffect(() => {
@@ -92,18 +93,18 @@ export default function Convocatoria() {
                                             Ver Información
                                         </Link>
 
-                                        <Link 
+                                        {/* <Link 
                                             to={`/convocatorias/${convocatoria.numero_of}/${punto.numero}/actualizar`}
                                             className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
                                             // state={{ convocatoria }}
                                         >
                                             <p>Actualizar</p>
-                                        </Link>
+                                        </Link> */}
 
                                         <Link
                                             className=" bg-red-500 hover:bg-red-400 text-center rounded-full text-white p-1 inline-block font-bold"
-                                            to={`/convocatorias/${convocatoria.numero_of}`}
-                                            state={{ convocatoria }} 
+                                            onClick={() => handleDeletePuntoConvocatoria(punto.id)}
+                                            state={{ convocatoria}}
                                         >
                                             Eliminar
                                         </Link>

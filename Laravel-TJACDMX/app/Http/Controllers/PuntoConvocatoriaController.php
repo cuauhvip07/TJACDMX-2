@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\PuntoConvocatoriaCollection;
 use App\Models\PuntoConvocatoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PuntoConvocatoriaController extends Controller
 {
@@ -13,14 +14,7 @@ class PuntoConvocatoriaController extends Controller
      */
     public function index(Request $request)
     {
-        return new PuntoConvocatoriaCollection(PuntoConvocatoria::where('convocatoria_id', $request->convocatoria_id)
-        ->get()
-        // ->map(function ($punto){
-        //     if($punto->archivos){
-        //         $punto->archivo_url = url('storage/'.$punto->archivos);
-        //     }
-        // })
-        );
+        return new PuntoConvocatoriaCollection(PuntoConvocatoria::where('convocatoria_id', $request->convocatoria_id)->get());
     }
 
     /**
@@ -96,6 +90,21 @@ class PuntoConvocatoriaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $punto_convocatoria = PuntoConvocatoria::find($id);
+
+        $archivos = json_decode($punto_convocatoria->archivos,true);
+
+        if(!empty($archivos)){
+            foreach($archivos as $archivo){
+                Storage::delete('public/'.$archivo);
+            }
+        }
+
+       $punto_convocatoria->delete();
+
+        return[
+            'message' => 'Punto de convocatoria eliminado correctamente'
+        ];
+       
     }
 }

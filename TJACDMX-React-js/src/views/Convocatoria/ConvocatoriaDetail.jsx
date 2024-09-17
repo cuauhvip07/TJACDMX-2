@@ -18,7 +18,7 @@ export default function ConvocatoriaDetail() {
             </h1>
             <div className="mt-5 mx-auto container">
                 <div className="shadow-lg p-4">
-                    <div className="flex justify-between">
+                    <div className=" grid grid-cols-5 gap-3">
                         <p className="font-bold">Numero de orden: <span className="font-normal">{numero_orden}</span></p>
                         <p className="font-bold">Descripción: <span className="font-normal">{descripcion}</span></p>
                         <p className="font-bold">Materia: <span className="font-normal">{materia}</span></p>

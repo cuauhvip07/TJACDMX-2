@@ -42,6 +42,8 @@ export default function ConvocatoriaMake() {
             
     },[])
 
+    console.log(puntoConvocatoria)
+
     
 
     const onSubmit = (data) => {
@@ -60,6 +62,11 @@ export default function ConvocatoriaMake() {
         formData.append('descripcion',data.descripcion);
         formData.append('comentarios',data.comentarios);
         formData.append('convocatoria_id',convocatoria.id)
+
+
+        if(puntoConvocatoria){
+            formData.append('id', puntoConvocatoria.id)
+        }
 
         handleNuevoPuntoConvocatoria(formData)
 
@@ -101,7 +108,7 @@ export default function ConvocatoriaMake() {
                                 type='number'
                                 id='numero_orden'
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.numero_orden ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("numero_orden",{
+                                {...register("numero_orden", puntoConvocatoria?.id ? {} :{
                                     required: "El numero de orden es obligatorio"
                                 })}
                             />
@@ -125,8 +132,8 @@ export default function ConvocatoriaMake() {
                                 type='file'
                                 id="fundamento_legal"
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.fundamento_legal ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("fundamento_legal",{
-                                    required:"El archivo es obligatorio"
+                                {...register("fundamento_legal", puntoConvocatoria?.id ? {} : {
+                                    required: "El archivo es obligatorio"
                                 })}
                                 accept=".pdf"
                                 multiple
@@ -149,7 +156,7 @@ export default function ConvocatoriaMake() {
                                 type='number'
                                 id="num_orden"
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.num_orden ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("num_orden",{
+                                {...register("num_orden", puntoConvocatoria?.id ? {} : {
                                     required:"El numero de orden del dia es obligatorio"
                                 })}
                             />
@@ -180,7 +187,7 @@ export default function ConvocatoriaMake() {
                                 name="materia" 
                                 id="materia" 
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.status ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register('materia',{
+                                {...register('materia', puntoConvocatoria?.id ? {} :{
                                     required: 'Debe seleccionar una materia'
                                 })}
                             >
@@ -205,7 +212,7 @@ export default function ConvocatoriaMake() {
                                 name="tipo_punto" 
                                 id="tipo_punto" 
                                 className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.tipo_punto ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register('tipo_punto',{
+                                {...register('tipo_punto', puntoConvocatoria?.id ? {} : {
                                     required: 'Debe de seleccionar un tipo de punto'
                                 })}
                             >
@@ -236,7 +243,7 @@ export default function ConvocatoriaMake() {
                         id="descripcion"
                         placeholder="Descripción"
                         className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.descripcion ? ' bg-red-100' : 'bg-gray-100'}`}
-                        {...register("descripcion",{
+                        {...register("descripcion", puntoConvocatoria?.id ? {} : {
                             required: 'La descripcion es obligatoria'
                         })}
                     >
@@ -259,7 +266,7 @@ export default function ConvocatoriaMake() {
                         id="comentarios"
                         placeholder="Comentarios u Obersaciones"
                         className={`border rounded-xl py-1 w-full focus:bg-gray-300  ${errors.comentarios ? ' bg-red-100' : 'bg-gray-100'}`}
-                        {...register("comentarios",{
+                        {...register("comentarios", puntoConvocatoria?.id ? {} :{
                             required: 'Los comnetarios son obligatorios'
                         })}
                     >

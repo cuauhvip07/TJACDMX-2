@@ -31,7 +31,24 @@ class PuntoConvocatoriaController extends Controller
     public function store(Request $request)
     {
 
-        $punto_convocatoria = new PuntoConvocatoria;
+        if($request->id){
+            $punto_convocatoria = PuntoConvocatoria::find($request->id);
+            $archivos = json_decode($punto_convocatoria->archivos,true);
+
+            if(!empty($archivos)){
+                foreach($archivos as $archivo){
+                    Storage::delete('public/'.$archivo);
+
+                }
+            }
+
+        } else{
+            $punto_convocatoria = new PuntoConvocatoria;
+        }
+
+       
+
+        
         $punto_convocatoria->numero_orden = $request->numero_orden;
         $punto_convocatoria->numero_orden_dia = $request->num_orden;
         $punto_convocatoria->descripcion = $request->descripcion;
@@ -58,6 +75,8 @@ class PuntoConvocatoriaController extends Controller
         return[
             "message" => 'Campos guardados correctamente'
         ];
+
+
         
     }
 

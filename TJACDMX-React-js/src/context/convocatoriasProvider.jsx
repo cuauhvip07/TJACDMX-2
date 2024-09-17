@@ -347,7 +347,6 @@ const ConvocatoriasProvider = ({ children }) => {
         });
     }
 
-
     useEffect(() => {
         obtenerEstatus()
     },[])

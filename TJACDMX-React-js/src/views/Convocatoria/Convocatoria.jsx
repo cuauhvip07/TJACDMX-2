@@ -24,7 +24,7 @@ export default function Convocatoria() {
     console.log(puntosConvocatoria)
 
 
-    useAuth({middleware: 'auth'});
+    const {user} = useAuth({middleware: 'auth'});
     
     
     useEffect(() => {
@@ -42,13 +42,15 @@ export default function Convocatoria() {
 
         
             <div className=" mt-10 w-full">
-               <Link 
+               {user && user.admin === 1 && (
+                    <Link 
                     to={`/convocatorias/${convocatoria.numero_of}/crear`} 
                     state={{convocatoria}} 
                     className=" mb-5 p-2 bg-red-500 text-white rounded-md"
-                >
-                +Añadir nueva orden
-               </Link>
+                    >
+                        +Añadir nueva orden
+                    </Link>
+               )}
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                         <tr>
@@ -99,21 +101,25 @@ export default function Convocatoria() {
                                             Ver Información
                                         </Link>
 
-                                        <Link 
-                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/actualizar`}
-                                            className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
-                                            state={{ punto,convocatoria }}
-                                        >
-                                            <p>Actualizar</p>
-                                        </Link>
+                                        {user && user.admin === 1 && (
+                                            <>
+                                                <Link 
+                                                to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/actualizar`}
+                                                className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
+                                                state={{ punto,convocatoria }}
+                                                >
+                                                    <p>Actualizar</p>
+                                                </Link>
 
-                                        <Link
-                                            className=" bg-red-500 hover:bg-red-400 text-center rounded-full text-white p-1 inline-block font-bold"
-                                            onClick={() => handleDeletePuntoConvocatoria(punto.id)}
-                                            state={{ convocatoria}}
-                                        >
-                                            Eliminar
-                                        </Link>
+                                                <Link
+                                                    className=" bg-red-500 hover:bg-red-400 text-center rounded-full text-white p-1 inline-block font-bold"
+                                                    onClick={() => handleDeletePuntoConvocatoria(punto.id)}
+                                                    state={{ convocatoria}}
+                                                >
+                                                    Eliminar
+                                                </Link>
+                                            </>
+                                        )}
                                     </div>
                                 </td>
                             

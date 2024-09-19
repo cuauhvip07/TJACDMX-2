@@ -88,20 +88,24 @@ export default function Convocatorias() {
                                             Ver Puntos de la convocatoria
                                         </Link>
 
-                                        <Link 
-                                            to={`/convocatorias/actualizar/${convocatoria.numero_of}`}
-                                            className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
-                                            state={{ convocatoria }}
-                                        >
-                                            <p>Actualizar</p>
-                                        </Link>
+                                        {user && user.admin === 1 && (
+                                            <>
+                                                <Link 
+                                                to={`/convocatorias/actualizar/${convocatoria.numero_of}`}
+                                                className=" bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black p-1 inline-block"
+                                                state={{ convocatoria }}
+                                                >
+                                                    <p>Actualizar</p>
+                                                </Link>
 
-                                        <button 
-                                            className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full p-1 inline-block font-bold"
-                                            onClick={() => handleDeleteConvocatoria({id: convocatoria.id, numero_of: convocatoria.numero_of})}
-                                        >
-                                            <p>Eliminar</p>
-                                        </button>
+                                                <button 
+                                                    className=" bg-red-500 hover:bg-red-400 text-white text-center rounded-full p-1 inline-block font-bold"
+                                                    onClick={() => handleDeleteConvocatoria({id: convocatoria.id, numero_of: convocatoria.numero_of})}
+                                                >
+                                                    <p>Eliminar</p>
+                                                </button>
+                                            </>
+                                        )}
                                     </div>
                                     
                                 </td>

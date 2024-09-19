@@ -3,8 +3,11 @@ import { Link } from "react-router-dom"
 import { formatearFecha } from "../../helpers/formatearFecha"
 import useConv from "../../hooks/useConv";
 import useConsulta from "../../hooks/useConsulta";
+import {useAuth} from "../../hooks/useAuth";
 
 export default function Integrantes() {
+
+    const {user} = useAuth({middleware: 'auth'});
 
     const {handleDeleteIntegrate} = useConv()
     const {obtenerIntegrantes} = useConsulta()
@@ -19,13 +22,15 @@ export default function Integrantes() {
 
   return (
     <div>
-        <div className=" bg-red-500 inline-block text-white ml-5 mt-5 p-2 rounded-lg">
-            <Link
-                to='/magistrados/nuevo-integrante'
-            >
-                <button>Añadir integrante</button>
-            </Link>
-        </div>
+        {user && user.admin === 1 && (
+            <div className=" bg-red-500 inline-block text-white ml-5 mt-5 p-2 rounded-lg">
+                <Link
+                    to='/magistrados/nuevo-integrante'
+                >
+                    <button>Añadir integrante</button>
+                </Link>
+            </div>
+        )}
         <div>
             <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
@@ -50,9 +55,11 @@ export default function Integrantes() {
                         </th>
 
 
-                        <th scope="col" className="px-6 py-3">
-                            Acciones
-                        </th>
+                        {user && user.admin === 1 && (
+                            <th scope="col" className="px-6 py-3">
+                                Acciones
+                            </th>
+                        )}
 
                     </tr>
                 </thead>
@@ -74,23 +81,25 @@ export default function Integrantes() {
                             <td className="px-6 py-4">
                                 {formatearFecha(integrante.fecha_fin)}
                             </td>
-                            <td className="px-6 py-4">
-                                <div className="flex flex-col gap-5">
-                                    <Link 
-                                        to={`/magistrados/actualizar/${integrante.id}`} 
-                                        className="bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black py-0.5 inline-block"
-                                        state={{ integrante }}
-                                    >
-                                        <p>Actualizar</p>
-                                    </Link>
-                                    <button
-                                        className="bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold"
-                                        onClick={() => handleDeleteIntegrate(integrante)}
-                                    >
-                                        <p>Eliminar</p>
-                                    </button>
-                                </div>
-                            </td>
+                            {user && user.admin === 1 && (
+                                <td className="px-6 py-4">
+                                    <div className="flex flex-col gap-5">
+                                        <Link 
+                                            to={`/magistrados/actualizar/${integrante.id}`} 
+                                            className="bg-orange-400 hover:bg-orange-300 text-center rounded-full text-black py-0.5 inline-block"
+                                            state={{ integrante }}
+                                        >
+                                            <p>Actualizar</p>
+                                        </Link>
+                                        <button
+                                            className="bg-red-500 hover:bg-red-400 text-white text-center rounded-full py-0.5 inline-block font-bold"
+                                            onClick={() => handleDeleteIntegrate(integrante)}
+                                        >
+                                            <p>Eliminar</p>
+                                        </button>
+                                    </div>
+                                </td>
+                            )}
                         </tr>
                     ))}
                 </tbody>

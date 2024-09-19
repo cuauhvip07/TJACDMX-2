@@ -21,8 +21,6 @@ export default function Convocatoria() {
 
     const navigate = useNavigate()
 
-    console.log(puntosConvocatoria)
-
 
     const {user} = useAuth({middleware: 'auth'});
     

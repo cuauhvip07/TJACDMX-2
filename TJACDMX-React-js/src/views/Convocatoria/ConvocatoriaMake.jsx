@@ -41,17 +41,16 @@ export default function ConvocatoriaMake() {
         }
             
     },[])
-
-    console.log(puntoConvocatoria)
-
     
 
     const onSubmit = (data) => {
 
         const formData =  new FormData()
 
-        for(let i = 0 ; i < data.fundamento_legal.length; i++){
-            formData.append('archivos[]',data.fundamento_legal[i])
+        if(data.fundamento_legal.length > 0){
+            for(let i = 0 ; i < data.fundamento_legal.length; i++){
+                formData.append('archivos[]',data.fundamento_legal[i])
+            }
         }
 
         

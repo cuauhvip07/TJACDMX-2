@@ -49,7 +49,10 @@ export default function Convocatoria() {
                         +Añadir nueva orden
                     </Link>
                )}
-                <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
+                
+                {puntosConvocatoria.length !== 0 ? (
+
+                    <table className="w-full text-sm text-left rtl:text-right text-gray-500 mt-5">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 ">
                         <tr>
                             <th scope="col" className="px-6 py-3">
@@ -67,7 +70,7 @@ export default function Convocatoria() {
                             <th scope="col" className="px-6 py-3">
                                 Acción
                             </th>
-                           
+                        
                         </tr>
                     </thead>
                     <tbody>
@@ -126,7 +129,10 @@ export default function Convocatoria() {
                         ))}
                         
                     </tbody>
-                </table>
+                    </table>
+                ) : (
+                    <p className=" mt-20 font-bold text-xl text-center">Agrega una orden para que se visualice aquí</p>
+                )}
             </div>
 
 

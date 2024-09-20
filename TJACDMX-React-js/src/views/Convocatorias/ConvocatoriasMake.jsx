@@ -119,9 +119,9 @@ export default function ConvocatoriasMake() {
                             <input
                                 type='file'
                                 id='archivo'
-                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300  ${errors.archivo ? ' bg-red-100' : 'bg-gray-100'}`}
-                                {...register("archivo",{
-                                    required: "El archivo es obligatorio"
+                                className={`border rounded-xl py-1 w-full text-center focus:bg-gray-300 ${errors.archivo ? ' bg-red-100' : 'bg-gray-100'}`}
+                                {...register("archivo", {
+                                    required: !convocatoria?.archivo ? "El archivo es obligatorio" : false
                                 })}
                                 accept=".pdf"
                             />

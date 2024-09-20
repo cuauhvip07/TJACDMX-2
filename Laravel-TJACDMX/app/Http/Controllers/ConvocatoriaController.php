@@ -45,34 +45,33 @@ class ConvocatoriaController extends Controller
      */
     public function store(Request $request)
     {
-
         if($request->id) {
             $convocatoria = Convocatoria::find($request->id);
 
             if ($request->hasFile('archivo')) {
-                // Verificar si hay un archivo existente y eliminarlo
+                // Si se sube un nuevo archivo, elimina el existente
                 if ($convocatoria->archivo && Storage::disk('public')->exists($convocatoria->archivo)) {
                     Storage::disk('public')->delete($convocatoria->archivo);
                 }
-        
-                // Subir el nuevo archivo y actualizar la ruta
+
+                // Sube el nuevo archivo
                 $path = $request->file('archivo')->store('uploads', 'public');
                 $convocatoria->archivo = $path;
             }
-        
-            // Actualizar el resto de la información
+
+            // Actualiza el resto de los campos, excepto 'archivo'
             $convocatoria->update($request->except('archivo'));
 
-        } else{
+        } else {
+            // Crea una nueva convocatoria
             $convocatoria = new Convocatoria;
             if ($request->hasFile('archivo')) {
-                $file = $request->file('archivo');
-                $path = $file->store('uploads', 'public');
-                $ruta = $path;
-                $convocatoria->archivo = $ruta;
+                $path = $request->file('archivo')->store('uploads', 'public');
+                $convocatoria->archivo = $path;
             }
         }
 
+        // Actualiza el resto de los datos
         $convocatoria->numero_conv = $request->numero_conv;
         $convocatoria->numero_of = $request->numero_of;
         $convocatoria->fecha = $request->fecha;
@@ -82,12 +81,7 @@ class ConvocatoriaController extends Controller
         $convocatoria->tipo_convocatoria_id = $request->tipo_convocatoria_id;
         $convocatoria->save();
 
-        // Falta poder subir archivos
-
-        return [
-            'message' => 'Datos guardados exitosamente'
-        ];
-
+        return ['message' => 'Datos guardados exitosamente'];
     }
 
     /**

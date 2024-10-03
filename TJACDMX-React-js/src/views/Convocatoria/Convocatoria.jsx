@@ -96,11 +96,21 @@ export default function Convocatoria() {
                                     <div className=" flex flex-col gap-3">
                                         <Link
                                             className=" bg-green-500 hover:bg-green-400 text-center rounded-full text-black p-1 inline-block font-bold"
-                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/menu`}
-                                            state={{ punto,convocatoria }} 
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}`}
+                                            state={{punto,convocatoria}}
                                         >
                                             Ver Información
                                         </Link>
+
+                                        <Link 
+                                            to={`/convocatorias/${convocatoria.numero_of}/${punto.numero_orden}/votacion`}
+                                            state={punto.id}
+                                            className=" bg-blue-500 hover:bg-blue-400 text-center rounded-full text-white p-1 inline-block font-bold"
+                                        >
+                                            Votos
+                                        </Link>
+
+                                        
 
                                         {user && user.admin === 1 && (
                                             <>

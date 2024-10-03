@@ -22,11 +22,9 @@ export default function Login() {
 
 
   return (
-  <div className=" flex flex-col md:flex-row md:justify-center my-16 gap-5 items-center">
-    <div>
-      Imagen
-    </div>
-    
+  <div className=" flex flex-col md:flex-row md:justify-center my-16 gap-20 items-center">
+   
+   <img className=" size-3/12" src="../public/tjacdmximg.png" alt="Imagen TJACDMX" />
     <div className='shadow-xl py-5 px-10 rounded-lg md:w-6/12'>
       <form onSubmit={handleSubmit(onSubmit)} >  
         <h2 className="text-center font-bold text-3xl mb-5">Crear una Cuenta</h2>

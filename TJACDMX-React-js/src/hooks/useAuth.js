@@ -68,6 +68,10 @@ export const useAuth = ({middleware,url}) => {
             navigate('/')
         }
 
+        if(middleware === 'encargado' && user && user.role < 2){
+            navigate('/')
+        }
+
     },[user,error])
 
     

@@ -27,10 +27,10 @@ export default function HeaderAuth() {
 
   return (
     <header className=' bg-gray-300 py-3'>
-      <div className='flex justify-between container mx-auto'>
-        <div>
-          Imagen TJACDMX
-        </div>
+      <div className='flex justify-between container mx-auto items-center'>
+        <NavLink to={'/'}>
+          <img className=' size-20' src="../public/tjacdmximg.png" alt="Imagen TJACDMX" />
+        </NavLink>
 
         <nav className={'md:flex space-x-3 hidden'}>
           <NavLink
